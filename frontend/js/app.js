@@ -1393,7 +1393,7 @@ async function loadAnnouncements(append = false) {
       const groupKey = item.product_group || '';
       const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
       const dept = item.department || '';
-      const egpWebUrl = `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
+      const egpWebUrl = window.getEgpPortalUrl ? window.getEgpPortalUrl(item) : `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
       // 1. Direct 100% Fit: Explicit Fire Protection, Alarm, Sprinkler, Suppression, Hydrant, Emergency systems
       const titleLower = (item.project_name || '').toLowerCase();
       const coreFteKeywords = [
@@ -1836,7 +1836,7 @@ async function loadBoqAnnouncements(append = false) {
       if (['boq'].includes(displayTypeClass)) displayTypeClass = '15';
       const groupKey = item.product_group || '';
       const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-      const egpWebUrl = `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
+      const egpWebUrl = window.getEgpPortalUrl ? window.getEgpPortalUrl(item) : `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
       const dept = item.department || '';
 
       // Extract matched keyword

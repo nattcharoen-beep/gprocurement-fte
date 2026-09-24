@@ -671,6 +671,15 @@ function calculateConfidenceScore(item) {
 
 function getEgpPortalUrl(item) {
   const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
+  if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
+    try {
+      const payload = JSON.stringify({ projectId: projId });
+      const encrypted = CryptoJS.AES.encrypt(payload, 'RDCrypto').toString();
+      return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
+    } catch (e) {
+      console.warn('e-GP encryption fallback:', e);
+    }
+  }
   const rawType = (item.announce_type || '').toUpperCase();
   const isAdv = rawType === '15' || rawType === 'BOQ' || rawType.startsWith('B');
   return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}${isAdv ? '&advancedSearch=true' : ''}`;
@@ -681,11 +690,8 @@ function getEgpPortalUrl(item) {
 // ============================================================================
 function generateV2CardHTML(item, index) {
   const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-  const rawType = (item.announce_type || '').toUpperCase();
-  const isBoq = rawType === '15' || rawType === 'BOQ';
-  const isTor = rawType.startsWith('B');
   const egpWebUrl = getEgpPortalUrl(item);
-  const egpBtnLabel = isBoq ? '🔗 เปิดใน e-GP (ราคากลาง)' : (isTor ? '🔗 เปิดใน e-GP (ร่าง TOR)' : '🔗 เปิดใน e-GP');
+  const egpBtnLabel = '🔗 เปิดใน e-GP';
   
   // Calculate Days Left & Countdown
   let daysLeft = null;

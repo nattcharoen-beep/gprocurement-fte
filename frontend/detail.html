@@ -27,6 +27,7 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
   <script src="js/api.js?v=8.0"></script>
   <script src="js/auth.js?v=5.8"></script>
   <script src="js/common.js?v=5.8"></script>
@@ -78,7 +79,16 @@
             </div>
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
               <p style="margin-bottom: 8px;"><strong>เลขที่โครงการ:</strong> <strong style="font-family: monospace; font-size: 1.1rem; color: #003366;">${(item.project_id || item.id || '-').replace(/-[A-Za-z0-9]+$/, '')}</strong></p>
-              <p style="margin-bottom: 8px;"><strong>เปิดค้นหาบน e-GP:</strong> <a href="https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent((item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, ''))}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.85rem; display: inline-block;" title="เปิดหน้าค้นหา e-GP ที่มีระบบความปลอดภัย Cloudflare">เปิดค้นหาใน e-GP 🔗</a></p>
+              <p style="margin-bottom: 8px;"><strong>เปิดดูบน e-GP:</strong> <a href="${(() => {
+                const pid = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
+                if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
+                  try {
+                    const enc = CryptoJS.AES.encrypt(JSON.stringify({ projectId: pid }), 'RDCrypto').toString();
+                    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(enc)}`;
+                  } catch (e) {}
+                }
+                return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(pid)}`;
+              })()}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.85rem; display: inline-block;" title="เปิดหน้าโครงการบน e-GP โดยตรง">เปิดดูใน e-GP 🔗</a></p>
             </div>
           </div>
         `;

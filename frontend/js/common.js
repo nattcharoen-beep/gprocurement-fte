@@ -32,6 +32,20 @@ const groupLabels = {
   'safety_ppe_emergency': 'ไฟฉุกเฉินและเซฟตี้'
 };
 
+window.getEgpPortalUrl = function(item) {
+  const pid = (typeof item === 'string' ? item : (item.project_id || item.id || '')).replace(/-[A-Za-z0-9]+$/, '');
+  if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
+    try {
+      const payload = JSON.stringify({ projectId: pid });
+      const encrypted = CryptoJS.AES.encrypt(payload, 'RDCrypto').toString();
+      return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
+    } catch (e) {
+      console.warn('e-GP encryption fallback:', e);
+    }
+  }
+  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(pid)}`;
+};
+
 function addWorkDays(startDate, days) {
   const cur = new Date(startDate);
   let added = 0;
