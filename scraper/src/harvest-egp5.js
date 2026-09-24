@@ -12,6 +12,17 @@ import { uploadToD1 } from './d1-uploader.js';
 import { extractProvince } from './province-extractor.js';
 import { scanPdfBuffer } from './in-memory-pdf-parser.js';
 import { getEgpSessionToken } from './capsolver.js';
+import CryptoJS from 'crypto-js';
+
+export function getDirectProcurementUrl(projectId) {
+  if (!projectId) return '';
+  try {
+    const encrypted = CryptoJS.AES.encrypt(JSON.stringify({ projectId: String(projectId) }), 'RDCrypto').toString();
+    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
+  } catch (e) {
+    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${projectId}`;
+  }
+}
 
 /**
  * Calculate Thai Buddhist Budget Year (Fiscal year runs Oct 1 - Sep 30)
@@ -218,7 +229,7 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
 
         if (items.length === 0) break;
 
-        let pastWindow = false;
+        let olderCount = 0;
         for (const it of items) {
           if (!it.projectId) continue;
           const pid = it.projectId;
@@ -227,7 +238,7 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
           if (annDate && annDate.includes('T')) annDate = annDate.split('T')[0];
 
           if (annDate && annDate < lookbackDateStr) {
-            pastWindow = true;
+            olderCount++;
             continue;
           }
 
@@ -263,7 +274,7 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
           }
         }
 
-        if (pastWindow) break;
+        if (olderCount === items.length) break;
         await new Promise(r => setTimeout(r, 800));
       }
       console.log(`  [Pass 1] "${kw}" (${bYear}): +${kwAdded} candidates (Batch unique: ${candidates.size})`);
@@ -500,7 +511,7 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
       price_announce_date: timelineDates.price_announce_date || null,
       draft_tor_date: timelineDates.draft_tor_date || null,
       invitation_date: timelineDates.invitation_date || null,
-      url: `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${pid}`,
+      url: getDirectProcurementUrl(pid),
       boq_summary: boqSummary,
       boq_matches: boqMatches,
       doc_verified: docVerified
@@ -634,7 +645,7 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
         const items = Array.isArray(res?.data) ? res.data : (res?.data?.data || []);
         if (items.length === 0) break;
 
-        let pastWindow = false;
+        let olderCount = 0;
         for (const it of items) {
           if (!it.projectId) continue;
           const pid = it.projectId;
@@ -643,7 +654,7 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
           if (annDate && annDate.includes('T')) annDate = annDate.split('T')[0];
 
           if (annDate && annDate < lookbackDateStr) {
-            pastWindow = true;
+            olderCount++;
             continue;
           }
 
@@ -679,7 +690,7 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
           }
         }
 
-        if (pastWindow) break;
+        if (olderCount === items.length) break;
         await new Promise(r => setTimeout(r, 450));
       }
       console.log(`  [Pass 1] "${kw}" (${bYear}): +${kwAdded} candidates (Batch unique: ${candidates.size})`);
@@ -925,7 +936,7 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
       price_announce_date: timelineDates.price_announce_date || null,
       draft_tor_date: timelineDates.draft_tor_date || null,
       invitation_date: timelineDates.invitation_date || null,
-      url: `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${pid}`,
+      url: getDirectProcurementUrl(pid),
       boq_summary: boqSummary,
       boq_matches: boqMatches,
       doc_verified: docVerified

@@ -388,27 +388,19 @@ function isExcluded(title) {
   // 1. If explicitly cancelled, exclude
   if (lower.includes('ยกเลิก')) return true;
 
-  // 2. High-value sports / flooring / fitness / curated disguised exemption:
+  // 2. High-value Fire Protection & Life Safety (FTE Core Business):
   const isTargetBusiness = [
-    'ฟิตเนส', 'fitness', 'ศูนย์ออกกำลังกาย', 'ห้องออกกำลังกาย', 'เครื่องออกกำลังกาย', 'พื้นฟิตเนส',
-    'สวนสาธารณะ', 'หลังคาโครงเหล็ก', 'อาคารโครงสร้างเหล็ก', 'ศูนย์นันทนาการ', 'ศูนย์เยาวชน', 'ซ่อมแซมพื้น', 'ปรับปรุงพื้น'
+    'ดับเพลิง', 'เพลิงไหม้', 'อัคคีภัย', 'fire alarm', 'smoke detector', 'ตรวจจับควัน', 'ตรวจจับความร้อน',
+    'เครื่องสูบน้ำดับเพลิง', 'ปั๊มดับเพลิง', 'สปริงเกอร์', 'สปริงเกลอร์', 'สารสะอาด', 'clean agent',
+    'fm-200', 'novec', 'ถังดับเพลิง', 'เครื่องดับเพลิง', 'ตู้ดับเพลิง', 'สายส่งน้ำดับเพลิง',
+    'ไฟฉุกเฉิน', 'โคมไฟฉุกเฉิน', 'ทางหนีไฟ', 'ทางออกฉุกเฉิน'
   ].some(k => lower.includes(k));
   if (isTargetBusiness) {
-    const hardExcludes = ['ทางหลวง', 'ถนนสาย', 'ป้ายจราจร', 'โซลาร์', 'ห้องน้ำ', 'ทำความสะอาด', 'รักษาความปลอดภัย', 'อาหาร', 'เทศกาล', 'จ้างออกแบบ', 'จ้างควบคุมงาน'];
+    const hardExcludes = ['ขยะ', 'รถบรรทุก', 'แม่บ้าน', 'ทำความสะอาด', 'รักษาความปลอดภัย', 'อาหารกลางวัน', 'จัดเลี้ยง', 'ยางมะตอย', 'ถนนลาดยาง'];
     return hardExcludes.some(kw => lower.includes(kw));
   }
 
   if (EXCLUDE_KEYWORDS.some(ex => lower.includes(ex.toLowerCase()))) return true;
-
-  // Clean the word 'พื้นที่' (area in sq.m.)
-  const cleanTitle = lower.replace(/พื้นที่(ใช้สอย)?/g, '');
-
-  // Exclude general civil building halls unless they match sports/flooring or human curated patterns
-  const isBuilding = ['อาคารอเนกประสงค์', 'ต่อเติมอาคาร'].some(b => lower.includes(b));
-  if (isBuilding) {
-    const hasSportsFlooring = ['กีฬา', 'สนาม', 'ลานกีฬา', 'ลู่วิ่ง', 'หญ้าเทียม', 'ฟุต', 'บาส', 'ยาง', 'เทพื้น', 'ปูพื้น', 'ปรับปรุงพื้น', 'อีพ็อกซี่', 'กันซึม', 'ฟิตเนส', 'fitness', 'โครงเหล็ก', 'ศูนย์นันทนาการ', 'สวนสาธารณะ'].some(s => cleanTitle.includes(s));
-    if (!hasSportsFlooring) return true;
-  }
   return false;
 }
 
