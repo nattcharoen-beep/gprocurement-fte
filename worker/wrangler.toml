@@ -1,0 +1,13 @@
+name = "gprocurement-fte"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gprocurement-fte-db"
+database_id = "538466fc-3fd1-417d-a3c6-4f7865e6a15b"
+
+[vars]
+ADMIN_EMAIL = "admin@firetrade.co.th"
+# Set JWT_SECRET, ADMIN_PASSWORD, and API_KEY via `wrangler secret put`
