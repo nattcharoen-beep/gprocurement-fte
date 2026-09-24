@@ -731,13 +731,14 @@
             <!-- Row 2: Budget Range Filter (มูลค่าโครงการ) -->
             <div class="drawer-section">
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-                <span style="font-size: 0.88rem; font-weight: 700; color: #003366; margin-right: 4px;">💰 มูลค่าโครงการ:</span>
+                <span style="font-size: 0.88rem; font-weight: 700; color: #dc2626; margin-right: 4px;">💰 มูลค่าโครงการ:</span>
                 <div class="budget-filters-container">
-                  <button class="btn-budget-filter active" data-v2-bmin="" data-v2-bmax="" onclick="selectV2Budget('', '', this)">ทั้งหมด (ไม่เกิน 50 ล้าน)</button>
-                  <button class="btn-budget-filter" data-v2-bmin="500000" data-v2-bmax="2000000" onclick="selectV2Budget('500000', '2000000', this)">5 แสน – 2 ล้าน</button>
-                  <button class="btn-budget-filter" data-v2-bmin="2000000" data-v2-bmax="5000000" onclick="selectV2Budget('2000000', '5000000', this)">2 – 5 ล้าน</button>
-                  <button class="btn-budget-filter" data-v2-bmin="5000000" data-v2-bmax="10000000" onclick="selectV2Budget('5000000', '10000000', this)">5 – 10 ล้าน</button>
-                  <button class="btn-budget-filter" data-v2-bmin="10000000" data-v2-bmax="50000000" onclick="selectV2Budget('10000000', '50000000', this)">10 – 50 ล้าน</button>
+                  <button class="btn-budget-filter active" data-v2-bmin="" data-v2-bmax="" onclick="selectV2Budget('', '', this)">ทั้งหมด</button>
+                  <button class="btn-budget-filter" data-v2-bmin="0" data-v2-bmax="50000000" onclick="selectV2Budget('0', '50000000', this)">&lt; 50 ล้าน</button>
+                  <button class="btn-budget-filter" data-v2-bmin="50000000" data-v2-bmax="100000000" onclick="selectV2Budget('50000000', '100000000', this)">50 – 100 ล้าน</button>
+                  <button class="btn-budget-filter" data-v2-bmin="100000000" data-v2-bmax="500000000" onclick="selectV2Budget('100000000', '500000000', this)">100 – 500 ล้าน</button>
+                  <button class="btn-budget-filter" data-v2-bmin="500000000" data-v2-bmax="1000000000" onclick="selectV2Budget('500000000', '1000000000', this)">500 – 1,000 ล้าน</button>
+                  <button class="btn-budget-filter" data-v2-bmin="1000000000" data-v2-bmax="" onclick="selectV2Budget('1000000000', '', this)">&gt; 1,000 ล้าน</button>
                 </div>
               </div>
             </div>
@@ -1111,7 +1112,7 @@
                   </div>
                   <div>
                     <label style="display: block; font-weight: 700; font-size: 0.85rem; color: #334155; margin-bottom: 6px;">วงเงินรับงานก่อสร้างรัฐสูงสุด:</label>
-                    <input type="number" id="v2-prof-max-budget" class="form-control" value="500000000">
+                    <input type="number" id="v2-prof-max-budget" class="form-control" value="1000000000">
                   </div>
                 </div>
 

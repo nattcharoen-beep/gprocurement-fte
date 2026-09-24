@@ -26,15 +26,15 @@ export function getThaiBudgetYear(date = new Date()) {
 export const BATCHES = [
   {
     name: 'Batch 1: Fire Alarm & Detection Systems',
-    keywords: ['แจ้งเหตุเพลิงไหม้', 'ระบบเตือนอัคคีภัย', 'Fire Alarm', 'ตรวจจับควัน', 'ตรวจจับความร้อน']
+    keywords: ['แจ้งเหตุเพลิงไหม้', 'ระบบเตือนอัคคีภัย', 'เตือนอัคคีภัย', 'Fire Alarm', 'ตรวจจับควัน', 'ตรวจจับความร้อน']
   },
   {
     name: 'Batch 2: Sprinklers & Fire Pump Systems',
-    keywords: ['หัวกระจายน้ำดับเพลิง', 'สปริงเกอร์ดับเพลิง', 'สปริงเกลอร์', 'เครื่องสูบน้ำดับเพลิง', 'Fire Pump']
+    keywords: ['หัวกระจายน้ำดับเพลิง', 'สปริงเกอร์', 'สปริงเกลอร์', 'เครื่องสูบน้ำดับเพลิง', 'ปั๊มดับเพลิง', 'Fire Pump']
   },
   {
     name: 'Batch 3: Clean Agent, Gas Suppression & Extinguishers',
-    keywords: ['สารสะอาดดับเพลิง', 'Clean Agent', 'FM-200', 'Novec', 'ถังดับเพลิง']
+    keywords: ['สารสะอาด', 'Clean Agent', 'FM-200', 'Novec', 'ถังดับเพลิง']
   },
   {
     name: 'Batch 4: Fire Hose, Hydrant, Valves & Piping',
@@ -42,7 +42,7 @@ export const BATCHES = [
   },
   {
     name: 'Batch 5: Safety Lights, Emergency & Key Agencies',
-    keywords: ['ไฟฉุกเฉิน', 'ป้ายทางออกฉุกเฉิน', 'ป้ายทางหนีไฟ', 'ปรับปรุงระบบดับเพลิง', 'ติดตั้งระบบดับเพลิง']
+    keywords: ['ไฟฉุกเฉิน', 'ป้ายทางออกฉุกเฉิน', 'ป้ายทางหนีไฟ', 'ปรับปรุงระบบดับเพลิง', 'ติดตั้งระบบดับเพลิง', 'ระบบดับเพลิง']
   }
 ];
 
@@ -156,9 +156,12 @@ async function fetchWithAuth(url, tokenManager, options = {}) {
     res = await fetch(url, { ...options, headers });
   }
 
-  if (res.status === 429) {
-    console.warn(`[e-GP RateLimit] HTTP 429 on ${url}. Backing off 5s and renewing session...`);
-    await new Promise(r => setTimeout(r, 5000));
+  let retries = 0;
+  while (res.status === 429 && retries < 3) {
+    retries++;
+    const waitSec = retries * 12; // 12s, 24s, 36s
+    console.warn(`[e-GP RateLimit] HTTP 429 on ${url}. Backing off ${waitSec}s (retry ${retries}/3)...`);
+    await new Promise(r => setTimeout(r, waitSec * 1000));
     session = await tokenManager.getSession(true);
     headers = { ...COMMON_HEADERS(session.token, null, session.cookies), ...(options.headers || {}) };
     res = await fetch(url, { ...options, headers });
@@ -229,7 +232,6 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
           }
 
           const budget = it.projectMoney || it.priceBuild || 0;
-          if (budget > 50000000) continue;
 
           const aType = it.announceType || '';
           const title = (it.projectName || '').toLowerCase();
@@ -262,10 +264,10 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
         }
 
         if (pastWindow) break;
-        await new Promise(r => setTimeout(r, 450));
+        await new Promise(r => setTimeout(r, 800));
       }
       console.log(`  [Pass 1] "${kw}" (${bYear}): +${kwAdded} candidates (Batch unique: ${candidates.size})`);
-      await new Promise(r => setTimeout(r, 600));
+      await new Promise(r => setTimeout(r, 1200));
     }
   }
 
@@ -291,7 +293,7 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
     } catch (e) {
       console.warn(`  [Pass 2] History error for ${pid}:`, e.message);
     }
-    await new Promise(r => setTimeout(r, 450));
+    await new Promise(r => setTimeout(r, 1100));
 
     if (history.length === 0) continue;
 
@@ -628,7 +630,6 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
           }
 
           const budget = it.projectMoney || it.priceBuild || 0;
-          if (budget > 50000000) continue;
 
           const aType = it.announceType || '';
           const title = (it.projectName || '').toLowerCase();
@@ -960,6 +961,16 @@ export async function harvestEGP5(apiUrl, apiKey, options = {}) {
         allVerified.set(p.id, p);
       }
       console.log(`-> Running Total Unique Verified Projects: ${allVerified.size}`);
+
+      if (apiUrl && apiKey && batchResults.length > 0) {
+        console.log(`[${batch.name}] Incrementally uploading ${batchResults.length} projects to D1...`);
+        try {
+          await uploadToD1(batchResults, apiUrl, apiKey);
+        } catch (upErr) {
+          console.warn(`[${batch.name}] Incremental upload warning:`, upErr.message);
+        }
+      }
+
       await new Promise(r => setTimeout(r, 3500));
     } catch (err) {
       console.error(`Error in ${batch.name}:`, err.message);

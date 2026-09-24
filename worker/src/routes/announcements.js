@@ -159,10 +159,6 @@ router.get('/', async (c) => {
       conditions.push(`budget <= ?`);
       params.push(Number(budget_max));
     }
-    // If neither budget_min nor budget_max specified, cap at 50,000,000 (User requirement: เกินกว่านี้ไม่ต้องหา)
-    if (!budget_max) {
-      conditions.push(`(budget <= 50000000 OR budget IS NULL)`);
-    }
     const date = c.req.query('date');
     const date_start = c.req.query('date_start');
     const date_end = c.req.query('date_end');
@@ -224,9 +220,6 @@ router.get('/stats', async (c) => {
     if (budget_max) {
       conditions.push(`budget <= ?`);
       params.push(Number(budget_max));
-    }
-    if (!budget_max) {
-      conditions.push(`(budget <= 50000000 OR budget IS NULL)`);
     }
 
     if (date) {

@@ -1089,7 +1089,6 @@ function renderOpportunitiesList(list) {
     const b = Number(item.budget) || 0;
     if (v2BudgetMin !== '' && b < v2BudgetMin) return false;
     if (v2BudgetMax !== '' && b > v2BudgetMax) return false;
-    if (v2BudgetMin === '' && v2BudgetMax === '' && b > 50000000) return false; // Default cap 50M
 
     // 6. Geographic Zone Filter (7 โซนทั่วประเทศ)
     if (v2SelectedZone) {
@@ -1940,7 +1939,7 @@ function loadSavedProfile() {
   let profile = {
     name: 'บริษัท ไฟร์เทรดเอ็นจิเนียริ่ง จำกัด (มหาชน)',
     capital: 300000000,
-    maxBudget: 500000000,
+    maxBudget: 1000000000,
     expertise: 'จำหน่ายและติดตั้งระบบดับเพลิงอัตโนมัติครบวงจร (Fire Protection Systems), ระบบแจ้งเหตุเพลิงไหม้ (Fire Alarm), ระบบสปริงเกอร์ดับเพลิง (Sprinkler), ระบบสารสะอาดและโฟม (FM-200, Novec 1230, CO2, Foam), ตู้สายส่งน้ำ/วาล์วดับเพลิง และอุปกรณ์ความปลอดภัยฉุกเฉิน',
     certs: 'NFPA Standards (NFPA 13, 14, 20, 72, 2001), UL Listed, FM Approved, มอก. 881-2532, ISO 9001:2015'
   };
@@ -1973,7 +1972,7 @@ window.saveCompanyProfile = function(event) {
   const profile = {
     name: document.getElementById('v2-prof-company-name').value,
     capital: Number(document.getElementById('v2-prof-capital').value) || 300000000,
-    maxBudget: Number(document.getElementById('v2-prof-max-budget').value) || 500000000,
+    maxBudget: Number(document.getElementById('v2-prof-max-budget').value) || 1000000000,
     expertise: document.getElementById('v2-prof-expertise').value,
     certs: document.getElementById('v2-prof-certs').value
   };
