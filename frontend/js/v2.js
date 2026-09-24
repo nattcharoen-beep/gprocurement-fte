@@ -669,12 +669,23 @@ function calculateConfidenceScore(item) {
   return { score, reason, badgeClass };
 }
 
+function getEgpPortalUrl(item) {
+  const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
+  const rawType = (item.announce_type || '').toUpperCase();
+  const isAdv = rawType === '15' || rawType === 'BOQ' || rawType.startsWith('B');
+  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}${isAdv ? '&advancedSearch=true' : ''}`;
+}
+
 // ============================================================================
 // Card Template Generator (Preserves ALL existing features + V2 Enhancements)
 // ============================================================================
 function generateV2CardHTML(item, index) {
   const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-  const egpWebUrl = `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
+  const rawType = (item.announce_type || '').toUpperCase();
+  const isBoq = rawType === '15' || rawType === 'BOQ';
+  const isTor = rawType.startsWith('B');
+  const egpWebUrl = getEgpPortalUrl(item);
+  const egpBtnLabel = isBoq ? '🔗 เปิดใน e-GP (ราคากลาง)' : (isTor ? '🔗 เปิดใน e-GP (ร่าง TOR)' : '🔗 เปิดใน e-GP');
   
   // Calculate Days Left & Countdown
   let daysLeft = null;
@@ -850,8 +861,8 @@ function generateV2CardHTML(item, index) {
         <button type="button" class="btn-card-action btn-action-copy" onclick="copyV2Text('${projId}', this)" title="คัดลอกเลข e-GP">
           📋 คัดลอกเลข: <strong style="font-family: monospace; color: #003366; margin-left: 3px;">${projId}</strong>
         </button>
-        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" title="เปิดใน e-GP">
-          🔗 เปิดใน e-GP
+        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" title="เปิดหน้าโครงการบน e-GP v5">
+          ${egpBtnLabel}
         </a>
         <button type="button" class="btn-card-action btn-action-sim" onclick="openBiddingSimulator('${item.id}')" title="คำนวณราคาเคาะและกำไร">
           🧮 เคาะราคา
@@ -916,7 +927,7 @@ function generateV2CardHTML(item, index) {
 // ============================================================================
 function generateV2TableRowHTML(item, index) {
   const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-  const egpWebUrl = `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
+  const egpWebUrl = getEgpPortalUrl(item);
   const origin = getMatchOriginInfo(item);
   const normType = getNormalizedType(item.announce_type);
   const typeText = window.typeLabels[normType] || window.typeLabels[item.announce_type] || item.announce_type;
@@ -2066,7 +2077,7 @@ window.openV2Inspector = function(itemId) {
   if (nextBtn) nextBtn.disabled = currentIndex < 0 || currentIndex >= totalCount - 1;
 
   const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-  const egpWebUrl = `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
+  const egpWebUrl = getEgpPortalUrl(item);
   const origin = getMatchOriginInfo(item);
   const normType = getNormalizedType(item.announce_type);
   const typeText = window.typeLabels[normType] || window.typeLabels[item.announce_type] || item.announce_type;
