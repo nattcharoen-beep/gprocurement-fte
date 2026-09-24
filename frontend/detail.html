@@ -96,11 +96,12 @@
             if (m && m[1]) kw = m[1];
           }
           if (!kw) {
-            if (item.product_group === 'waterproofing') kw = 'กันซึม';
-            else if (item.product_group === 'sport_flooring') kw = 'พื้นสนามกีฬา/ลู่วิ่ง';
-            else if (item.product_group === 'playground') kw = 'สนามเด็กเล่น';
-            else if (item.product_group === 'factory_flooring') kw = 'พื้นอีพ็อกซี่/PU';
-            else kw = 'สเปกตรงสาย';
+            if (item.product_group === 'fire_alarm') kw = 'ระบบแจ้งเหตุเพลิงไหม้';
+            else if (item.product_group === 'fire_sprinkler_pump') kw = 'สปริงเกอร์และปั๊มดับเพลิง';
+            else if (item.product_group === 'fire_suppression_gas') kw = 'สารสะอาดและก๊าซดับเพลิง';
+            else if (item.product_group === 'fire_hydrant_equipment') kw = 'ตู้สายส่งน้ำและวาล์ว';
+            else if (item.product_group === 'safety_ppe_emergency') kw = 'ไฟฉุกเฉินและเซฟตี้';
+            else kw = 'สเปกระบบดับเพลิง';
           }
 
           html += `

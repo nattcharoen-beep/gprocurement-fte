@@ -650,19 +650,19 @@ function calculateConfidenceScore(item) {
 
   if (hasBoq) {
     score = 95;
-    reason = 'สแกนพบสเปกใน BOQ';
+    reason = 'สแกนพบสเปกระบบดับเพลิงใน BOQ';
     badgeClass = 'high';
-  } else if (title.includes('epdm') || title.includes('ลู่วิ่ง') || title.includes('ยางสังเคราะห์')) {
+  } else if (title.includes('fire alarm') || title.includes('แจ้งเหตุเพลิงไหม้') || title.includes('เตือนอัคคีภัย') || title.includes('สปริงเกอร์') || title.includes('สูบน้ำดับเพลิง') || title.includes('สารสะอาด')) {
     score = 92;
-    reason = 'คีย์เวิร์ดตรงสายเป้าหมายหลัก 100%';
+    reason = 'คีย์เวิร์ดระบบดับเพลิงตรงสาย 100%';
     badgeClass = 'high';
-  } else if (title.includes('สนามกีฬา') || title.includes('สนามเด็กเล่น')) {
+  } else if (title.includes('ดับเพลิง') || title.includes('ถังดับเพลิง') || title.includes('ตู้ดับเพลิง')) {
     score = 85;
-    reason = 'โครงการหมวดกีฬาและเครื่องเล่น';
+    reason = 'โครงการหมวดอุปกรณ์ดับเพลิง';
     badgeClass = 'medium';
-  } else if (title.includes('กันซึม') || title.includes('อีพ็อกซี่')) {
+  } else if (title.includes('ไฟฉุกเฉิน') || title.includes('ทางหนีไฟ')) {
     score = 80;
-    reason = 'งานระบบพื้นโรงงาน/กันซึม';
+    reason = 'หมวดความปลอดภัยและไฟฉุกเฉิน';
     badgeClass = 'medium';
   }
 
@@ -1484,7 +1484,7 @@ window.filterOpportunitiesAll = function() {
   v2BudgetMin = '';
   v2BudgetMax = '';
   v2SelectedTypes = ['D0', 'B0', '15', 'P0'];
-  v2SelectedGroups = ['sport_flooring', 'playground', 'factory_flooring', 'waterproofing'];
+  v2SelectedGroups = ['fire_alarm', 'fire_sprinkler_pump', 'fire_suppression_gas', 'fire_hydrant_equipment', 'safety_ppe_emergency'];
 
   const s1 = document.getElementById('v2-search-input');
   if (s1) s1.value = '';
@@ -1686,7 +1686,7 @@ window.toggleV2GroupFilter = function(group, el) {
 window.resetV2Filters = function() {
   v2BoqOnly = false;
   v2SelectedTypes = ['D0', 'B0', '15', 'P0'];
-  v2SelectedGroups = ['sport_flooring', 'playground', 'factory_flooring', 'waterproofing'];
+  v2SelectedGroups = ['fire_alarm', 'fire_sprinkler_pump', 'fire_suppression_gas', 'fire_hydrant_equipment', 'safety_ppe_emergency'];
   v2SearchKeyword = '';
   v2SelectedDays = -1;
   v2BudgetMin = '';

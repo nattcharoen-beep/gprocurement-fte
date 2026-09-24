@@ -68,13 +68,13 @@ window.renderBoqKeywordBox = function(item) {
     }
   }
 
-  // 3. Fallback from product_group
   if (!keyword) {
-    if (item.product_group === 'waterproofing') keyword = 'กันซึม';
-    else if (item.product_group === 'sport_flooring') keyword = 'พื้นสนามกีฬา/ลู่วิ่ง';
-    else if (item.product_group === 'playground') keyword = 'สนามเด็กเล่น';
-    else if (item.product_group === 'factory_flooring') keyword = 'พื้นอีพ็อกซี่/PU';
-    else keyword = 'สเปกตรงสาย';
+    if (item.product_group === 'fire_alarm') keyword = 'ระบบแจ้งเหตุเพลิงไหม้';
+    else if (item.product_group === 'fire_sprinkler_pump') keyword = 'สปริงเกอร์และปั๊มดับเพลิง';
+    else if (item.product_group === 'fire_suppression_gas') keyword = 'สารสะอาดและก๊าซดับเพลิง';
+    else if (item.product_group === 'fire_hydrant_equipment') keyword = 'ตู้สายส่งน้ำและวาล์ว';
+    else if (item.product_group === 'safety_ppe_emergency') keyword = 'ไฟฉุกเฉินและเซฟตี้';
+    else keyword = 'สเปกระบบดับเพลิง';
   }
 
   return `
@@ -602,11 +602,12 @@ window.getMatchOriginInfo = function(item) {
   }
 
   if (!keyword) {
-    if (item.product_group === 'waterproofing') keyword = 'กันซึม';
-    else if (item.product_group === 'sport_flooring') keyword = 'พื้นกีฬา/ลู่วิ่ง';
-    else if (item.product_group === 'playground') keyword = 'สนามเด็กเล่น';
-    else if (item.product_group === 'factory_flooring') keyword = 'พื้นโรงงาน';
-    else keyword = 'สเปกตรงสาย';
+    if (item.product_group === 'fire_alarm') keyword = 'ระบบแจ้งเหตุเพลิงไหม้';
+    else if (item.product_group === 'fire_sprinkler_pump') keyword = 'สปริงเกอร์และปั๊มดับเพลิง';
+    else if (item.product_group === 'fire_suppression_gas') keyword = 'สารสะอาดและก๊าซดับเพลิง';
+    else if (item.product_group === 'fire_hydrant_equipment') keyword = 'ตู้สายส่งน้ำและวาล์ว';
+    else if (item.product_group === 'safety_ppe_emergency') keyword = 'ไฟฉุกเฉินและเซฟตี้';
+    else keyword = 'สเปกระบบดับเพลิง';
   }
 
   return {

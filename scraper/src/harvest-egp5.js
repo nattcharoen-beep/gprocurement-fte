@@ -385,41 +385,59 @@ async function runBatchDirect(batchName, keywords, lookbackDateStr, todayStr, to
     const annDateStr = latestRow.announceDate?.split('T')[0] || cand.announceDate;
 
     const lowerTitle = cand.title.toLowerCase();
-    let group = 'sport_flooring';
+    let group = 'fire_sprinkler_pump';
+
     if (
-      lowerTitle.includes('เด็กเล่น') ||
-      lowerTitle.includes('เครื่องเล่น') ||
-      lowerTitle.includes('นิรภัย') ||
-      lowerTitle.includes('เด็กเล็ก') ||
-      lowerTitle.includes('สร้างปัญญา') ||
-      lowerTitle.includes('ออกกำลังกาย') ||
-      lowerTitle.includes('ลานออกกำลังกาย')
+      lowerTitle.includes('แจ้งเหตุเพลิงไหม้') ||
+      lowerTitle.includes('เตือนอัคคีภัย') ||
+      lowerTitle.includes('fire alarm') ||
+      lowerTitle.includes('ตรวจจับควัน') ||
+      lowerTitle.includes('ตรวจจับความร้อน') ||
+      lowerTitle.includes('smoke detector') ||
+      lowerTitle.includes('heat detector') ||
+      lowerTitle.includes('facp')
     ) {
-      group = 'playground';
+      group = 'fire_alarm';
     } else if (
-      lowerTitle.includes('กันซึม') ||
-      lowerTitle.includes('ดาดฟ้า') ||
-      lowerTitle.includes('กันรั่ว') ||
-      lowerTitle.includes('สระว่ายน้ำ') ||
-      lowerTitle.includes('ปรับปรุงสระ') ||
-      lowerTitle.includes('pvc สระ')
+      lowerTitle.includes('สารสะอาด') ||
+      lowerTitle.includes('clean agent') ||
+      lowerTitle.includes('fm-200') ||
+      lowerTitle.includes('fm200') ||
+      lowerTitle.includes('novec') ||
+      lowerTitle.includes('ถังดับเพลิง') ||
+      lowerTitle.includes('เครื่องดับเพลิง') ||
+      lowerTitle.includes('โฟมดับเพลิง') ||
+      lowerTitle.includes('co2') ||
+      lowerTitle.includes('ก๊าซดับเพลิง')
     ) {
-      group = 'waterproofing';
+      group = 'fire_suppression_gas';
     } else if (
-      lowerTitle.includes('อีพ็อกซี่') ||
-      lowerTitle.includes('epoxy') ||
-      lowerTitle.includes('โรงงาน') ||
-      lowerTitle.includes('pu crete') ||
-      lowerTitle.includes('pu screed') ||
-      lowerTitle.includes('ซ่อมแซมคอนกรีต') ||
-      lowerTitle.includes('ขัดพื้น') ||
-      lowerTitle.includes('ปูนซ่อม') ||
-      lowerTitle.includes('ซ่อมแซมพื้น') ||
-      lowerTitle.includes('ปรับปรุงพื้น') ||
-      lowerTitle.includes('เคลือบพื้น') ||
-      lowerTitle.includes('ปูพื้น')
+      lowerTitle.includes('ตู้สาย') ||
+      lowerTitle.includes('ตู้ดับเพลิง') ||
+      lowerTitle.includes('สายส่งน้ำดับเพลิง') ||
+      lowerTitle.includes('หัวรับน้ำ') ||
+      lowerTitle.includes('หัวดับเพลิง') ||
+      lowerTitle.includes('hydrant') ||
+      lowerTitle.includes('fhc') ||
+      lowerTitle.includes('ท่อดับเพลิง') ||
+      lowerTitle.includes('วาล์วดับเพลิง')
     ) {
-      group = 'factory_flooring';
+      group = 'fire_hydrant_equipment';
+    } else if (
+      lowerTitle.includes('ไฟฉุกเฉิน') ||
+      lowerTitle.includes('โคมไฟฉุกเฉิน') ||
+      lowerTitle.includes('emergency light') ||
+      lowerTitle.includes('ทางออกฉุกเฉิน') ||
+      lowerTitle.includes('ทางหนีไฟ') ||
+      lowerTitle.includes('exit sign') ||
+      lowerTitle.includes('สายไฟทนไฟ') ||
+      lowerTitle.includes('frc') ||
+      lowerTitle.includes('ชุดดับเพลิง') ||
+      lowerTitle.includes('scba')
+    ) {
+      group = 'safety_ppe_emergency';
+    } else {
+      group = 'fire_sprinkler_pump';
     }
 
     // In-Memory Document Inspection (Zero-Disk Footprint, 100% Scan Coverage)
@@ -787,41 +805,59 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
     const annDateStr = latestRow.announceDate?.split('T')[0] || cand.announceDate;
 
     const lowerTitle = cand.title.toLowerCase();
-    let group = 'sport_flooring';
+    let group = 'fire_sprinkler_pump';
+
     if (
-      lowerTitle.includes('เด็กเล่น') ||
-      lowerTitle.includes('เครื่องเล่น') ||
-      lowerTitle.includes('นิรภัย') ||
-      lowerTitle.includes('เด็กเล็ก') ||
-      lowerTitle.includes('สร้างปัญญา') ||
-      lowerTitle.includes('ออกกำลังกาย') ||
-      lowerTitle.includes('ลานออกกำลังกาย')
+      lowerTitle.includes('แจ้งเหตุเพลิงไหม้') ||
+      lowerTitle.includes('เตือนอัคคีภัย') ||
+      lowerTitle.includes('fire alarm') ||
+      lowerTitle.includes('ตรวจจับควัน') ||
+      lowerTitle.includes('ตรวจจับความร้อน') ||
+      lowerTitle.includes('smoke detector') ||
+      lowerTitle.includes('heat detector') ||
+      lowerTitle.includes('facp')
     ) {
-      group = 'playground';
+      group = 'fire_alarm';
     } else if (
-      lowerTitle.includes('กันซึม') ||
-      lowerTitle.includes('ดาดฟ้า') ||
-      lowerTitle.includes('กันรั่ว') ||
-      lowerTitle.includes('สระว่ายน้ำ') ||
-      lowerTitle.includes('ปรับปรุงสระ') ||
-      lowerTitle.includes('pvc สระ')
+      lowerTitle.includes('สารสะอาด') ||
+      lowerTitle.includes('clean agent') ||
+      lowerTitle.includes('fm-200') ||
+      lowerTitle.includes('fm200') ||
+      lowerTitle.includes('novec') ||
+      lowerTitle.includes('ถังดับเพลิง') ||
+      lowerTitle.includes('เครื่องดับเพลิง') ||
+      lowerTitle.includes('โฟมดับเพลิง') ||
+      lowerTitle.includes('co2') ||
+      lowerTitle.includes('ก๊าซดับเพลิง')
     ) {
-      group = 'waterproofing';
+      group = 'fire_suppression_gas';
     } else if (
-      lowerTitle.includes('อีพ็อกซี่') ||
-      lowerTitle.includes('epoxy') ||
-      lowerTitle.includes('โรงงาน') ||
-      lowerTitle.includes('pu crete') ||
-      lowerTitle.includes('pu screed') ||
-      lowerTitle.includes('ซ่อมแซมคอนกรีต') ||
-      lowerTitle.includes('ขัดพื้น') ||
-      lowerTitle.includes('ปูนซ่อม') ||
-      lowerTitle.includes('ซ่อมแซมพื้น') ||
-      lowerTitle.includes('ปรับปรุงพื้น') ||
-      lowerTitle.includes('เคลือบพื้น') ||
-      lowerTitle.includes('ปูพื้น')
+      lowerTitle.includes('ตู้สาย') ||
+      lowerTitle.includes('ตู้ดับเพลิง') ||
+      lowerTitle.includes('สายส่งน้ำดับเพลิง') ||
+      lowerTitle.includes('หัวรับน้ำ') ||
+      lowerTitle.includes('หัวดับเพลิง') ||
+      lowerTitle.includes('hydrant') ||
+      lowerTitle.includes('fhc') ||
+      lowerTitle.includes('ท่อดับเพลิง') ||
+      lowerTitle.includes('วาล์วดับเพลิง')
     ) {
-      group = 'factory_flooring';
+      group = 'fire_hydrant_equipment';
+    } else if (
+      lowerTitle.includes('ไฟฉุกเฉิน') ||
+      lowerTitle.includes('โคมไฟฉุกเฉิน') ||
+      lowerTitle.includes('emergency light') ||
+      lowerTitle.includes('ทางออกฉุกเฉิน') ||
+      lowerTitle.includes('ทางหนีไฟ') ||
+      lowerTitle.includes('exit sign') ||
+      lowerTitle.includes('สายไฟทนไฟ') ||
+      lowerTitle.includes('frc') ||
+      lowerTitle.includes('ชุดดับเพลิง') ||
+      lowerTitle.includes('scba')
+    ) {
+      group = 'safety_ppe_emergency';
+    } else {
+      group = 'fire_sprinkler_pump';
     }
 
     // In-Memory Document Inspection (Zero-Disk Footprint, 100% Scan Coverage)
@@ -926,19 +962,6 @@ export async function harvestEGP5(apiUrl, apiKey, options = {}) {
       console.log('[e-GP v5 Engine] Initializing resilient session manager via CapSolver...');
       tokenManager = new EgpSessionManager(capsolverApiKey);
       await tokenManager.getSession();
-
-      // Probe authorization check
-      console.log('[e-GP v5 Engine] Probing e-GP announcement search authorization...');
-      const probeUrl = `https://process5.gprocurement.go.th/egp-oann10-service/pb/a-egp-allt-project/announcement?announcementTodayFlag=false&budgetYear=${currentBudgetYear}&keywordSearch=%E0%B8%81%E0%B8%B5%E0%B8%AC%E0%B8%B2&page=1`;
-      const probeRes = await fetchWithAuth(probeUrl, tokenManager);
-      if (probeRes.ok) {
-        const probeJson = await probeRes.json();
-        const probeItems = Array.isArray(probeJson?.data) ? probeJson.data : (probeJson?.data?.data || []);
-        console.log(`[e-GP v5 Engine] Probe result: validateCfTurnTile=${probeJson?.validateCfTurnTile}, count=${probeItems.length}`);
-        if (probeJson?.validateCfTurnTile === false) {
-          throw new Error('CapSolver token rejected by e-GP (validateCfTurnTile=false)');
-        }
-      }
       console.log('[e-GP v5 Engine] ✅ CapSolver Session Manager verified! Enabling High-Speed Direct Engine with Auto-Renewal.');
     } catch (csErr) {
       console.error(`[e-GP v5 Engine] CapSolver error (${csErr.message}). Falling back to Puppeteer.`);
