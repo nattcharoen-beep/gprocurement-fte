@@ -413,7 +413,7 @@ async function loadV2Data() {
       boqBadge.textContent = bCount;
     }
     if (archiveBadge) {
-      archiveBadge.textContent = statsData?.archiveCount || (v2ArchivedAnnouncements ? v2ArchivedAnnouncements.length : 395);
+      archiveBadge.textContent = statsData?.archiveCount != null ? statsData.archiveCount : (v2ArchivedAnnouncements ? v2ArchivedAnnouncements.length : 0);
     }
 
     // Calculate Executive KPIs
@@ -621,7 +621,7 @@ function calculateExecutiveKPIs(allList, boqList, statsData) {
   // 4. Archive count
   const archiveValEl = document.getElementById('kpi-val-archive');
   if (archiveValEl) {
-    const aCount = statsData?.archiveCount || (v2ArchivedAnnouncements ? v2ArchivedAnnouncements.length : 407);
+    const aCount = statsData?.archiveCount != null ? statsData.archiveCount : (v2ArchivedAnnouncements ? v2ArchivedAnnouncements.length : 0);
     archiveValEl.textContent = `${aCount} โครงการ`;
   }
 
