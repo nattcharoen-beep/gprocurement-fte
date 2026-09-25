@@ -68,7 +68,7 @@
           
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px;">
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-              <p style="margin-bottom: 10px; font-size: 1.05rem;"><strong>หน่วยงาน:</strong> <strong style="color: #003366; font-size: 1.1rem;">${item.department || '-'}</strong></p>
+              <p style="margin-bottom: 10px; font-size: 1.05rem;"><strong>หน่วยงาน:</strong> <strong style="color: #0f172a; font-size: 1.1rem;">${item.department || '-'}</strong></p>
               <p style="margin-bottom: 10px; font-size: 1.05rem;"><strong>จังหวัด:</strong> ${
                 item.province && item.province !== 'ไม่ระบุ' && item.province !== 'null'
                   ? `<span style="background: #e0f2fe; color: #0284c7; font-weight: 700; font-size: 0.95rem; padding: 2px 12px; border-radius: 6px; border: 1px solid #bae6fd; display: inline-flex; align-items: center; gap: 4px;">📍 ${item.province.startsWith('จังหวัด') || item.province === 'กรุงเทพมหานคร' || item.province.startsWith('จ.') ? item.province : 'จ.' + item.province}</span>`
@@ -78,17 +78,8 @@
               <p style="margin-bottom: 8px;"><strong>วันที่ประกาศ:</strong> ${formatDate(item.announce_date)}</p>
             </div>
             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-              <p style="margin-bottom: 8px;"><strong>เลขที่โครงการ:</strong> <strong style="font-family: monospace; font-size: 1.1rem; color: #003366;">${(item.project_id || item.id || '-').replace(/-[A-Za-z0-9]+$/, '')}</strong></p>
-              <p style="margin-bottom: 8px;"><strong>เปิดดูบน e-GP:</strong> <a href="${(() => {
-                const pid = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-                if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
-                  try {
-                    const enc = CryptoJS.AES.encrypt(JSON.stringify({ projectId: pid }), 'RDCrypto').toString();
-                    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(enc)}`;
-                  } catch (e) {}
-                }
-                return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(pid)}`;
-              })()}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.85rem; display: inline-block;" title="เปิดหน้าโครงการบน e-GP โดยตรง">เปิดดูใน e-GP 🔗</a></p>
+              <p style="margin-bottom: 8px;"><strong>เลขที่โครงการ:</strong> <strong style="font-family: monospace; font-size: 1.1rem; color: #0f172a;">${(item.project_id || item.id || '-').replace(/-[A-Za-z0-9]+$/, '')}</strong></p>
+              <p style="margin-bottom: 8px;"><strong>เปิดดูบน e-GP:</strong> <a href="${window.getEgpPortalUrl ? window.getEgpPortalUrl(item) : 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=' + encodeURIComponent((item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, ''))}" target="_blank" rel="noopener noreferrer" onclick="if (window.openEgpWithCopy) { openEgpWithCopy('${(item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '')}', event); }" class="btn btn-primary" style="padding: 4px 12px; font-size: 0.85rem; display: inline-block;" title="เปิดหน้าโครงการบน e-GP พร้อมคัดลอกเลขอัตโนมัติ">เปิดดูใน e-GP 🔗</a></p>
             </div>
           </div>
         `;
@@ -178,7 +169,7 @@
           html += `
             <div style="background: #eef6ff; padding: 20px; border-radius: 8px; margin-top: 20px; border-left: 4px solid var(--badge-w0, #0066cc);">
               <h3 style="margin-bottom: 12px; color: var(--primary-color);">📊 ข้อมูลผู้ชนะการเสนอราคา (คู่แข่ง)</h3>
-              <p style="margin-bottom: 8px;"><strong>ชื่อบริษัทผู้ชนะ:</strong> <span style="font-size: 1.1rem; font-weight: bold; color: #003366;">${item.winner_name || 'ไม่ระบุ'}</span></p>
+              <p style="margin-bottom: 8px;"><strong>ชื่อบริษัทผู้ชนะ:</strong> <span style="font-size: 1.1rem; font-weight: bold; color: #0f172a;">${item.winner_name || 'ไม่ระบุ'}</span></p>
               <p style="margin-bottom: 8px;"><strong>ราคาที่ชนะ:</strong> <span style="color: var(--success, #28a745); font-weight: bold;">${formatMoney(item.winner_price)}</span></p>
               <p style="margin-bottom: 8px;"><strong>ส่วนลดจากราคากลาง:</strong> <span style="color: #dc3545; font-weight: bold;">${discountStr}</span></p>
               ${item.winner_tax_id ? `<p style="margin-bottom: 8px;"><strong>เลขประจำตัวผู้เสียภาษี:</strong> ${item.winner_tax_id}</p>` : ''}

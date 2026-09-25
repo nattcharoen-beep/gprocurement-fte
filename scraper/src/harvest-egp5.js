@@ -15,13 +15,9 @@ import { getEgpSessionToken } from './capsolver.js';
 import CryptoJS from 'crypto-js';
 
 export function getDirectProcurementUrl(projectId) {
-  if (!projectId) return '';
-  try {
-    const encrypted = CryptoJS.AES.encrypt(JSON.stringify({ projectId: String(projectId) }), 'RDCrypto').toString();
-    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
-  } catch (e) {
-    return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${projectId}`;
-  }
+  if (!projectId) return 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement';
+  const cleanId = String(projectId).replace(/-[A-Za-z0-9]+$/, '');
+  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(cleanId)}`;
 }
 
 /**

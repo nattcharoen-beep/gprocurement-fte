@@ -30,9 +30,9 @@ function loadEnvIfAvailable() {
 }
 
 function getDirectProcurementUrl(projectId) {
-  if (!projectId) return '';
-  const encrypted = CryptoJS.AES.encrypt(JSON.stringify({ projectId: String(projectId) }), 'RDCrypto').toString();
-  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
+  if (!projectId) return 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement';
+  const cleanId = String(projectId).replace(/-[A-Za-z0-9]+$/, '');
+  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(cleanId)}`;
 }
 
 async function scanAndUpload() {

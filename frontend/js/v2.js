@@ -670,19 +670,12 @@ function calculateConfidenceScore(item) {
 }
 
 function getEgpPortalUrl(item) {
-  const projId = (item.project_id || item.id || '').replace(/-[A-Za-z0-9]+$/, '');
-  if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
-    try {
-      const payload = JSON.stringify({ projectId: projId });
-      const encrypted = CryptoJS.AES.encrypt(payload, 'RDCrypto').toString();
-      return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
-    } catch (e) {
-      console.warn('e-GP encryption fallback:', e);
-    }
+  if (typeof window.getEgpPortalUrl === 'function' && window.getEgpPortalUrl !== getEgpPortalUrl) {
+    return window.getEgpPortalUrl(item);
   }
-  const rawType = (item.announce_type || '').toUpperCase();
-  const isAdv = rawType === '15' || rawType === 'BOQ' || rawType.startsWith('B');
-  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}${isAdv ? '&advancedSearch=true' : ''}`;
+  const projId = (typeof item === 'string' ? item : (item?.project_id || item?.id || '')).replace(/-[A-Za-z0-9]+$/, '');
+  if (!projId) return 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement';
+  return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(projId)}`;
 }
 
 // ============================================================================
@@ -861,13 +854,13 @@ function generateV2CardHTML(item, index) {
 
       <!-- Layer 3: Action Buttons (Clear & Touch-friendly) -->
       <div class="card-layer-actions" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
-        <button type="button" class="btn-card-action btn-action-detail" onclick="openV2Inspector('${item.id}')" style="background: #003366; color: #fff; font-weight: 700;" title="เปิดแถบตรวจสอบสเปกละเอียด">
+        <button type="button" class="btn-card-action btn-action-detail" onclick="openV2Inspector('${item.id}')" style="background: #dc2626; color: #fff; font-weight: 700;" title="เปิดแถบตรวจสอบสเปกละเอียด">
           ⚡ ตรวจสอบสเปก
         </button>
         <button type="button" class="btn-card-action btn-action-copy" onclick="copyV2Text('${projId}', this)" title="คัดลอกเลข e-GP">
-          📋 คัดลอกเลข: <strong style="font-family: monospace; color: #003366; margin-left: 3px;">${projId}</strong>
+          📋 คัดลอกเลข: <strong style="font-family: monospace; color: #0f172a; margin-left: 3px;">${projId}</strong>
         </button>
-        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" title="เปิดหน้าโครงการบน e-GP v5">
+        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" onclick="openEgpWithCopy('${projId}', event)" class="btn-card-action btn-action-egp" title="เปิดหน้าโครงการบน e-GP v5 (คัดลอกเลขอัตโนมัติ)">
           ${egpBtnLabel}
         </a>
         <button type="button" class="btn-card-action btn-action-sim" onclick="openBiddingSimulator('${item.id}')" title="คำนวณราคาเคาะและกำไร">
@@ -994,7 +987,7 @@ function generateV2TableRowHTML(item, index) {
         <button type="button" class="btn-card-action btn-action-sim" onclick="openBiddingSimulator('${item.id}')" style="height: 30px; padding: 0 8px; font-size: 0.78rem;" title="เคาะราคา">
           🧮
         </button>
-        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" style="height: 30px; padding: 0 8px; font-size: 0.78rem;" title="เปิด e-GP">
+        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" onclick="openEgpWithCopy('${projId}', event)" class="btn-card-action btn-action-egp" style="height: 30px; padding: 0 8px; font-size: 0.78rem;" title="เปิด e-GP (คัดลอกเลขอัตโนมัติ)">
           🔗
         </a>
         <button type="button" class="btn-ai-choice btn-ai-yes ${isMatched ? 'active' : ''}" onclick="submitV2Feedback('${item.id}', 1, this)" style="height: 30px; padding: 0 8px; font-size: 0.78rem;" title="ใช่งานเรา">
@@ -1168,7 +1161,7 @@ function renderOpportunitiesList(list) {
           <p style="color: #475569; font-size: 0.92rem; margin-bottom: 10px;">
             📁 หากงานนี้เคาะราคาหรือทำสัญญาแล้ว โครงการจะถูกย้ายไปเก็บใน <strong>"คลังเคาะแล้ว (Archive)"</strong>
           </p>
-          <button type="button" onclick="goToArchiveWithSearch()" style="background: #003366; color: #ffffff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'Anuphan', sans-serif;">
+          <button type="button" onclick="goToArchiveWithSearch()" style="background: #dc2626; color: #ffffff; border: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: 'Anuphan', sans-serif;">
             👉 กดที่นี่เพื่อเปิดค้นหาใน "📁 คลังเคาะแล้ว (Archive)"
           </button>
         </div>
@@ -1894,7 +1887,7 @@ function renderKeywordTable() {
           </label>
         </td>
         <td>
-          <strong style="color: #003366; font-size: 0.95rem;">${item.kw}</strong>
+          <strong style="color: #0f172a; font-size: 0.95rem;">${item.kw}</strong>
         </td>
         <td>
           <span class="badge group-${item.group}">${item.groupName}</span>
@@ -2016,7 +2009,7 @@ function showToast(msg) {
   if (!container) return;
   const toast = document.createElement('div');
   toast.className = 'toast';
-  toast.style.background = '#003366';
+  toast.style.background = '#dc2626';
   toast.style.color = '#ffffff';
   toast.style.padding = '10px 18px';
   toast.style.borderRadius = '8px';
@@ -2136,7 +2129,7 @@ window.openV2Inspector = function(itemId) {
         </div>
         <div>
           <div style="font-size: 0.74rem; font-weight: 700; color: #64748b; text-transform: uppercase;">เลขที่ e-GP</div>
-          <div style="font-family: ui-monospace, monospace; font-size: 0.95rem; font-weight: 700; color: #003366; margin-top: 4px; display: flex; align-items: center; gap: 6px;">
+          <div style="font-family: ui-monospace, monospace; font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-top: 4px; display: flex; align-items: center; gap: 6px;">
             <span>${projId}</span>
             <button type="button" onclick="copyV2Text('${projId}', this)" style="border: 1px solid #cbd5e1; background: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.72rem; cursor: pointer;" title="คัดลอก">📋</button>
           </div>
@@ -2211,7 +2204,7 @@ window.openV2Inspector = function(itemId) {
       <!-- Factor F Quick Intelligence Box -->
       <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-          <span style="font-size: 0.82rem; font-weight: 700; color: #003366; display: flex; align-items: center; gap: 6px;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: #dc2626; display: flex; align-items: center; gap: 6px;">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/></svg>
             <span>ประมาณการ Factor F & เพดานราคาประมูล</span>
           </span>
@@ -2237,7 +2230,7 @@ window.openV2Inspector = function(itemId) {
 
       <!-- Quick Document Links -->
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="flex: 1; min-width: 140px; text-align: center; padding: 9px 12px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+        <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" onclick="openEgpWithCopy('${projId}', event)" class="btn btn-secondary" style="flex: 1; min-width: 140px; text-align: center; padding: 9px 12px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 6px;" title="เปิดหน้าโครงการบน e-GP พร้อมคัดลอกเลขอัตโนมัติ">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
           <span>เปิดดูใน e-GP</span>
         </a>

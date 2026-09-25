@@ -31,10 +31,10 @@ window.MARKET_BENCHMARKS = {
     tip: 'โคมไฟฉุกเฉิน Max Bright และป้ายทางออก ตลาดลดเฉลี่ย 9.1% ตรวจสอบ มอก. และระยะเวลาสำรองไฟ'
   },
   // Backward compatibility
-  sport_flooring: { avgDiscount: 6.85, name: 'ระบบแจ้งเหตุเพลิงไหม้ (Fire Alarm)', tip: 'ระบบเตือนภัยเพลิงไหม้' },
-  playground: { avgDiscount: 5.20, name: 'สปริงเกอร์ & ปั๊มน้ำดับเพลิง', tip: 'ระบบหัวกระจายน้ำ' },
-  waterproofing: { avgDiscount: 7.45, name: 'ระบบดับเพลิงแก๊สและสารสะอาด', tip: 'ระบบสารสะอาด' },
-  factory_flooring: { avgDiscount: 8.30, name: 'ตู้สายส่งน้ำและวาล์ว', tip: 'ระบบท่อและตู้ดับเพลิง' }
+  fire_alarm: { avgDiscount: 6.85, name: 'ระบบแจ้งเหตุเพลิงไหม้ (Fire Alarm)', tip: 'ระบบเตือนภัยเพลิงไหม้' },
+  fire_sprinkler_pump: { avgDiscount: 5.20, name: 'สปริงเกอร์ & ปั๊มน้ำดับเพลิง', tip: 'ระบบหัวกระจายน้ำ' },
+  fire_suppression_gas: { avgDiscount: 7.45, name: 'ระบบดับเพลิงแก๊สและสารสะอาด', tip: 'ระบบสารสะอาด' },
+  fire_hydrant_equipment: { avgDiscount: 8.30, name: 'ตู้สายส่งน้ำและวาล์ว', tip: 'ระบบท่อและตู้ดับเพลิง' }
 };
 
 // Global announcements map for fast lookup
@@ -91,8 +91,8 @@ function openBiddingSimulator(projectId) {
   // Estimate equipment & installation costs
   const equipInput = document.getElementById('sim-input-equip-cost');
   const installInput = document.getElementById('sim-input-install-cost');
-  const epdmAreaInput = document.getElementById('sim-input-epdm-area');
-  const epdmUnitCostInput = document.getElementById('sim-input-epdm-unit-cost');
+  const equipCostInput = document.getElementById('sim-input-equip-cost');
+  const installCostInput = document.getElementById('sim-input-install-cost');
   const otherCostInput = document.getElementById('sim-input-other-cost');
   const bufferInput = document.getElementById('sim-input-buffer');
 
@@ -102,8 +102,8 @@ function openBiddingSimulator(projectId) {
 
   if (equipInput) equipInput.value = estEquip;
   if (installInput) installInput.value = estInstall;
-  if (epdmAreaInput) epdmAreaInput.value = Math.max(10, Math.round(estEquip / 1000));
-  if (epdmUnitCostInput) epdmUnitCostInput.value = 1000;
+  if (equipCostInput) equipCostInput.value = Math.max(10, Math.round(estEquip / 1000));
+  if (installCostInput) installCostInput.value = 1000;
   if (otherCostInput) otherCostInput.value = estOther;
   if (bufferInput) bufferInput.value = 100000;
 
@@ -180,16 +180,16 @@ function recalculateSimulator() {
   const budget = parseFloat(document.getElementById('sim-input-budget')?.value || 0);
   const equipInput = document.getElementById('sim-input-equip-cost');
   const installInput = document.getElementById('sim-input-install-cost');
-  const epdmAreaInput = document.getElementById('sim-input-epdm-area');
-  const epdmUnitCostInput = document.getElementById('sim-input-epdm-unit-cost');
+  const equipCostInput = document.getElementById('sim-input-equip-cost');
+  const installCostInput = document.getElementById('sim-input-install-cost');
   const otherCost = parseFloat(document.getElementById('sim-input-other-cost')?.value || 0);
   const bufferCost = parseFloat(document.getElementById('sim-input-buffer')?.value || 100000);
   const bidPrice = parseFloat(document.getElementById('sim-input-bid-price')?.value || budget);
 
   // Financial Math (VAT 7% Reconciliation according to FTE SOP)
   let costEquip = equipInput ? parseFloat(equipInput.value || 0) : 0;
-  if (!equipInput && epdmAreaInput) {
-    costEquip = parseFloat(epdmAreaInput.value || 0) * parseFloat(epdmUnitCostInput?.value || 1000);
+  if (!equipInput && equipCostInput) {
+    costEquip = parseFloat(equipCostInput.value || 0) * parseFloat(installCostInput?.value || 1000);
   }
   const costInstall = installInput ? parseFloat(installInput.value || 0) : 0;
   const costExVat = otherCost + costEquip + costInstall + bufferCost;

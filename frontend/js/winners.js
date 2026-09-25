@@ -45,7 +45,7 @@ function selectWinnerYears(years, btn) {
   const indicatorEl = document.getElementById('active-period-indicator');
   if (indicatorEl) {
     const label = years === 'all' ? 'ทุกช่วงปี (ทั้งหมด)' : `${years} ปีย้อนหลัง`;
-    indicatorEl.innerHTML = `แสดงข้อมูล: <strong style="color: #003366;">${label}</strong>`;
+    indicatorEl.innerHTML = `แสดงข้อมูล: <strong style="color: #0f172a;">${label}</strong>`;
   }
 
   const topCardTitle = document.getElementById('top-winners-card-title');
@@ -89,7 +89,7 @@ async function loadWinnerStats() {
         <tr style="${rowBg}">
           <td><strong>${s.winner_name || 'ไม่ระบุ'}</strong>${nameTag}</td>
           <td><span style="background: ${isFTE ? '#fef08a' : '#e0f2fe'}; color: ${isFTE ? '#854d0e' : '#0284c7'}; font-weight: 700; padding: 2px 8px; border-radius: 6px;">${s.win_count || 0} โครงการ</span></td>
-          <td><strong style="color: ${isFTE ? '#854d0e' : '#003366'}; font-size: ${isFTE ? '1.05rem' : '1rem'};">${formatMoney(s.total_value)}</strong></td>
+          <td><strong style="color: ${isFTE ? '#854d0e' : '#0f172a'}; font-size: ${isFTE ? '1.05rem' : '1rem'};">${formatMoney(s.total_value)}</strong></td>
         </tr>
       `;
     }).join('');
@@ -196,28 +196,28 @@ async function loadWinnerList(append = false) {
              <span style="background: #eab308; color: #ffffff; font-weight: 800; font-size: 0.82rem; padding: 3px 12px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">⭐ งานที่ FTE ชนะ</span>
            </div>`
         : `<div style="margin: 10px 0; background: #eef6ff; padding: 10px; border-radius: 6px;">
-             <strong>ผู้ชนะ: </strong> <span style="color: var(--primary-color, #003366); font-weight: bold; font-size: 1.05rem;">${item.winner_name || 'ไม่ระบุ'}</span>
+             <strong>ผู้ชนะ: </strong> <span style="color: var(--primary-color, #dc2626); font-weight: bold; font-size: 1.05rem;">${item.winner_name || 'ไม่ระบุ'}</span>
            </div>`;
 
       return `
         <div class="announcement-card" data-project-id="${item.id}" style="${cardBorder}">
           <div class="announcement-meta" style="margin-bottom: 6px;">
             <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-              <span style="background: ${isFTE ? '#854d0e' : '#003366'}; color: #ffffff; font-weight: 700; font-size: 0.82rem; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">#${itemIndex}</span>
+              <span style="background: ${isFTE ? '#854d0e' : '#0f172a'}; color: #ffffff; font-weight: 700; font-size: 0.82rem; padding: 2px 8px; border-radius: 4px; letter-spacing: 0.5px; box-shadow: 0 1px 2px rgba(0,0,0,0.1);">#${itemIndex}</span>
               ${yearBadge}
               <span class="badge type-w0">${typeLabels['W0'] || '✅ ผู้ชนะ'}</span>
               ${item.product_group ? `<span class="badge group-${item.product_group}">${groupLabels[item.product_group] || item.product_group}</span>` : ''}
               ${fteBadge}
             </div>
             <div style="font-size: 0.88rem; color: #555;">
-              📅 ประกาศเมื่อ: <strong style="color: #003366;">${formatDate(item.announce_date)}</strong>
+              📅 ประกาศเมื่อ: <strong style="color: #0f172a;">${formatDate(item.announce_date)}</strong>
             </div>
           </div>
 
           <div class="project-id-box" style="display: flex; align-items: center; justify-content: space-between; background: ${isFTE ? '#fffbeb' : '#f8fafc'}; border: 1px solid ${isFTE ? '#fde68a' : '#cbd5e1'}; border-radius: 6px; padding: 6px 12px; margin: 8px 0;">
             <div>
-              <span style="color: #64748b; font-size: 0.85rem;">ลำดับ: <strong style="color: #003366;">#${itemIndex}</strong> | เลขที่โครงการ:</span>
-              <strong style="font-family: monospace; font-size: 0.95rem; color: #003366; margin-left: 6px;">${projId}</strong>
+              <span style="color: #64748b; font-size: 0.85rem;">ลำดับ: <strong style="color: #0f172a;">#${itemIndex}</strong> | เลขที่โครงการ:</span>
+              <strong style="font-family: monospace; font-size: 0.95rem; color: #0f172a; margin-left: 6px;">${projId}</strong>
             </div>
             <button class="btn btn-outline btn-copy" onclick="copyText('${projId}', this)" style="padding: 4px 10px; font-size: 0.82rem; cursor: pointer; border: 1px solid #0066cc; color: #0066cc; border-radius: 4px; background: #ffffff;" title="คัดลอกเลขที่โครงการ">📋 คัดลอกเลขที่</button>
           </div>
@@ -269,10 +269,6 @@ async function loadWinnerList(append = false) {
   } catch (err) {
     if (!append) container.innerHTML = `<div class="error-msg">เกิดข้อผิดพลาด: ${err.message}</div>`;
   }
-}
-
-function filterBlucherOnly(btn) {
-  filterFTEOnly(btn);
 }
 
 function filterFTEOnly(btn) {

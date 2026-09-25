@@ -124,7 +124,7 @@ async function loadUsers() {
       return `
         <tr style="${rowStyle}">
           <td>
-            <div style="font-weight: 700; color: #003366;">${u.username || '-'}</div>
+            <div style="font-weight: 700; color: #0f172a;">${u.username || '-'}</div>
             ${u.name ? `<div style="font-size: 0.82rem; color: #64748b;">${u.name}</div>` : ''}
             ${isPending ? `<span style="display: inline-block; font-size: 0.72rem; color: #b45309; background: #fef3c7; padding: 1px 6px; border-radius: 4px; margin-top: 2px;">เพิ่งสมัครใหม่</span>` : ''}
           </td>
@@ -268,7 +268,7 @@ async function loadUserActivity(isAutoRefresh = false) {
           return `
             <tr style="${isOnline ? 'background: #f0fdf4;' : ''}">
               <td>
-                <div style="font-weight: 700; color: #003366;">${u.username || '-'}</div>
+                <div style="font-weight: 700; color: #0f172a;">${u.username || '-'}</div>
                 ${u.name ? `<div style="font-size: 0.8rem; color: #64748b;">${u.name}</div>` : ''}
               </td>
               <td>${u.email}</td>
@@ -308,7 +308,7 @@ async function loadUserActivity(isAutoRefresh = false) {
           return `
             <tr style="${isOnline ? 'background: #f0fdf4;' : ''}">
               <td>
-                <div style="font-weight: 700; color: #003366;">${s.username || '-'}</div>
+                <div style="font-weight: 700; color: #0f172a;">${s.username || '-'}</div>
                 ${s.name ? `<div style="font-size: 0.78rem; color: #64748b;">${s.name}</div>` : ''}
               </td>
               <td style="font-size: 0.85rem;">${startTimeStr}</td>
@@ -316,7 +316,7 @@ async function loadUserActivity(isAutoRefresh = false) {
                 <div>${formatRelativeTime(s.last_active_at)}</div>
               </td>
               <td>
-                <span style="background: #f1f5f9; color: #003366; padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; border: 1px solid #cbd5e1;">
+                <span style="background: #f1f5f9; color: #0f172a; padding: 3px 8px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; border: 1px solid #cbd5e1;">
                   ⏱️ ${formatDuration(s.duration_seconds)}
                 </span>
               </td>

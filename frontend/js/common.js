@@ -33,17 +33,29 @@ const groupLabels = {
 };
 
 window.getEgpPortalUrl = function(item) {
-  const pid = (typeof item === 'string' ? item : (item.project_id || item.id || '')).replace(/-[A-Za-z0-9]+$/, '');
-  if (typeof CryptoJS !== 'undefined' && CryptoJS.AES) {
-    try {
-      const payload = JSON.stringify({ projectId: pid });
-      const encrypted = CryptoJS.AES.encrypt(payload, 'RDCrypto').toString();
-      return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement/procurement/${encodeURIComponent(encrypted)}`;
-    } catch (e) {
-      console.warn('e-GP encryption fallback:', e);
-    }
-  }
+  const pid = (typeof item === 'string' ? item : (item?.project_id || item?.id || '')).replace(/-[A-Za-z0-9]+$/, '');
+  if (!pid) return 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement';
   return `https://process5.gprocurement.go.th/egp-agpc01-web/announcement?keywordSearch=${encodeURIComponent(pid)}`;
+};
+
+window.openEgpWithCopy = function(item, event) {
+  const pid = (typeof item === 'string' ? item : (item?.project_id || item?.id || '')).replace(/-[A-Za-z0-9]+$/, '');
+  if (pid && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(pid).catch(() => {});
+  }
+  if (typeof showToast === 'function') {
+    showToast(`📋 คัดลอกเลขโครงการ ${pid} เรียบร้อยแล้ว! กำลังเปิดหน้า e-GP...`);
+  }
+  const url = window.getEgpPortalUrl(pid);
+  
+  if (event && event.currentTarget && event.currentTarget.tagName === 'A' && event.currentTarget.href) {
+    return true;
+  }
+  if (event && typeof event.preventDefault === 'function') {
+    event.preventDefault();
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+  return false;
 };
 
 function addWorkDays(startDate, days) {
@@ -208,23 +220,19 @@ window.isExcluded = function(title) {
 
   if (lower.includes('ยกเลิก')) return true;
 
+  // 2. Core fire protection business terms for FTE
   const isTargetBusiness = [
-    'ฟิตเนส', 'fitness', 'ศูนย์ออกกำลังกาย', 'ห้องออกกำลังกาย', 'เครื่องออกกำลังกาย', 'พื้นฟิตเนส',
-    'สวนสาธารณะ', 'หลังคาโครงเหล็ก', 'อาคารโครงสร้างเหล็ก', 'ศูนย์นันทนาการ', 'ศูนย์เยาวชน', 'ซ่อมแซมพื้น', 'ปรับปรุงพื้น'
+    'แจ้งเหตุเพลิงไหม้', 'fire alarm', 'facp', 'smoke detector', 'สปริงเกอร์', 'fire pump',
+    'clean agent', 'fm-200', 'novec', 'ตู้ดับเพลิง', 'ท่อดับเพลิง', 'สายส่งน้ำดับเพลิง',
+    'หัวรับน้ำดับเพลิง', 'วาล์วดับเพลิง', 'ไฟฉุกเฉิน', 'fire extinguisher', 'ถังดับเพลิง'
   ].some(k => lower.includes(k));
+
   if (isTargetBusiness) {
-    const hardExcludes = ['ทางหลวง', 'ถนนสาย', 'ป้ายจราจร', 'โซลาร์', 'ห้องน้ำ', 'ทำความสะอาด', 'รักษาความปลอดภัย', 'อาหาร', 'เทศกาล', 'จ้างออกแบบ', 'จ้างควบคุมงาน'];
+    const hardExcludes = ['ขยะ', 'สิ่งปฏิกูล', 'อาหาร', 'เทศกาล', 'จ้างออกแบบ', 'จ้างควบคุมงาน'];
     return hardExcludes.some(kw => lower.includes(kw));
   }
 
-  if (window.EXCLUDE_KEYWORDS.some(ex => lower.includes(ex.toLowerCase()))) return true;
-
-  const cleanTitle = lower.replace(/พื้นที่(ใช้สอย)?/g, '');
-  const isBuilding = ['อาคารอเนกประสงค์', 'ต่อเติมอาคาร'].some(b => lower.includes(b));
-  if (isBuilding) {
-    const hasSportsFlooring = ['กีฬา', 'สนาม', 'ลานกีฬา', 'ลู่วิ่ง', 'หญ้าเทียม', 'ฟุต', 'บาส', 'ยาง', 'เทพื้น', 'ปูพื้น', 'ปรับปรุงพื้น', 'อีพ็อกซี่', 'กันซึม', 'ฟิตเนส', 'fitness', 'โครงเหล็ก', 'ศูนย์นันทนาการ', 'สวนสาธารณะ'].some(s => cleanTitle.includes(s));
-    if (!hasSportsFlooring) return true;
-  }
+  if (Array.isArray(window.EXCLUDE_KEYWORDS) && window.EXCLUDE_KEYWORDS.some(ex => lower.includes(ex.toLowerCase()))) return true;
   return false;
 };
 

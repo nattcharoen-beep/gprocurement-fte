@@ -18,7 +18,7 @@
   --v2-text-main: #0f172a;
   --v2-text-muted: #64748b;
   
-  --v2-primary: #003366;
+  --v2-primary: #dc2626;
   --v2-primary-light: #0284c7;
   --v2-accent: #0284c7;
   --v2-success: #16a34a;
@@ -87,7 +87,7 @@ body.v2-body {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #003366;
+  background: #dc2626;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -215,7 +215,7 @@ body.v2-body {
   width: 30px;
   height: 30px;
   border-radius: 6px;
-  background: #003366;
+  background: #dc2626;
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -376,7 +376,7 @@ body.v2-body {
 }
 
 .v2-btn-quick-calc {
-  background: linear-gradient(135deg, #0284c7 0%, #003366 100%);
+  background: linear-gradient(135deg, #0284c7 0%, #dc2626 100%);
   color: #ffffff;
   border: none;
   padding: 8px 16px;
@@ -451,7 +451,7 @@ body.v2-body {
 }
 
 .v2-kpi-card.kpi-boq::before { background: #16a34a; }
-.v2-kpi-card.kpi-budget::before { background: #003366; }
+.v2-kpi-card.kpi-budget::before { background: #dc2626; }
 .v2-kpi-card.kpi-active::before { background: #dc2626; }
 .v2-kpi-card.kpi-watch::before { background: #d97706; }
 
@@ -832,9 +832,9 @@ button, input, select, textarea {
 }
 
 .btn-zone-filter.active {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
-  border-color: #003366 !important;
+  border-color: #dc2626 !important;
   box-shadow: 0 2px 5px rgba(0, 51, 102, 0.25);
   font-weight: 700;
 }
@@ -884,7 +884,7 @@ button, input, select, textarea {
 }
 
 .btn-date-filter.active {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   font-weight: 700;
@@ -920,7 +920,7 @@ button, input, select, textarea {
 }
 
 .btn-budget-filter.active {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
   box-shadow: 0 2px 4px rgba(0, 51, 102, 0.25);
   font-weight: 700;
@@ -956,7 +956,7 @@ button, input, select, textarea {
 }
 
 .btn-status-filter.active {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
   font-weight: 700;
 }
@@ -985,10 +985,6 @@ button, input, select, textarea {
 .badge.type-15,
 .badge.type-p0, .badge.type-P0,
 .badge.type-w0, .badge.type-W0,
-.badge.group-sport_flooring,
-.badge.group-playground,
-.badge.group-factory_flooring,
-.badge.group-waterproofing,
 .badge.group-fire_alarm,
 .badge.group-fire_sprinkler_pump,
 .badge.group-fire_suppression_gas,
@@ -1029,10 +1025,6 @@ button, input, select, textarea {
 .badge-outline.type-15,
 .badge-outline.type-p0,
 .badge-outline.type-w0,
-.badge-outline.group-sport_flooring,
-.badge-outline.group-playground,
-.badge-outline.group-factory_flooring,
-.badge-outline.group-waterproofing,
 .badge-outline.group-fire_alarm,
 .badge-outline.group-fire_sprinkler_pump,
 .badge-outline.group-fire_suppression_gas,
@@ -1049,10 +1041,6 @@ button, input, select, textarea {
 .badge-outline.type-15.active,
 .badge-outline.type-p0.active,
 .badge-outline.type-w0.active,
-.badge-outline.group-sport_flooring.active,
-.badge-outline.group-playground.active,
-.badge-outline.group-factory_flooring.active,
-.badge-outline.group-waterproofing.active,
 .badge-outline.group-fire_alarm.active,
 .badge-outline.group-fire_sprinkler_pump.active,
 .badge-outline.group-fire_suppression_gas.active,
@@ -1318,7 +1306,7 @@ button, input, select, textarea {
 
 .v2-view-btn.active {
   background: #ffffff;
-  color: #003366;
+  color: #dc2626;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   font-weight: 700;
 }
@@ -1664,7 +1652,7 @@ button, input, select, textarea {
 .v2-region-count-badge {
   font-size: 1.1rem;
   font-weight: 800;
-  color: #003366;
+  color: #dc2626;
   background: #f1f5f9;
   padding: 3px 10px;
   border-radius: 20px;
@@ -1672,9 +1660,9 @@ button, input, select, textarea {
 }
 
 .v2-region-card:hover .v2-region-count-badge {
-  background: #003366;
+  background: #dc2626;
   color: #ffffff;
-  border-color: #003366;
+  border-color: #dc2626;
 }
 
 .v2-region-bar-wrap {
@@ -1715,7 +1703,7 @@ button, input, select, textarea {
 }
 
 .v2-region-card:hover .v2-region-cta {
-  color: #003366;
+  color: #dc2626;
 }
 
 /* Overview Product Groups Grid */
@@ -1743,10 +1731,11 @@ button, input, select, textarea {
   box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
-.v2-group-card.group-sport_flooring:hover { border-color: #2563eb; background: #eff6ff; }
-.v2-group-card.group-playground:hover { border-color: #d97706; background: #fffbeb; }
-.v2-group-card.group-waterproofing:hover { border-color: #0d9488; background: #f0fdfa; }
-.v2-group-card.group-factory_flooring:hover { border-color: #7c3aed; background: #faf5ff; }
+.v2-group-card.group-fire_alarm:hover { background: #fef2f2; border-color: #fca5a5; }
+.v2-group-card.group-fire_sprinkler_pump:hover { background: #eff6ff; border-color: #93c5fd; }
+.v2-group-card.group-fire_suppression_gas:hover { background: #f5f3ff; border-color: #c4b5fd; }
+.v2-group-card.group-fire_hydrant_equipment:hover { background: #fff7ed; border-color: #fdba74; }
+.v2-group-card.group-safety_ppe_emergency:hover { background: #f0fdf4; border-color: #86efac; }
 
 /* Interactive Box Cards for Regional & Product Overview (V2.5) */
 .ov-region-grid {
@@ -1776,9 +1765,9 @@ button, input, select, textarea {
 }
 
 .ov-region-box:hover .ov-btn-pill {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
-  border-color: #003366 !important;
+  border-color: #dc2626 !important;
 }
 
 .ov-group-grid {
@@ -1805,13 +1794,13 @@ button, input, select, textarea {
 .ov-group-box:hover {
   transform: translateY(-3px) !important;
   box-shadow: 0 10px 22px rgba(0, 51, 102, 0.12) !important;
-  border-color: #003366 !important;
+  border-color: #dc2626 !important;
 }
 
 .ov-group-box:hover .ov-btn-pill {
-  background: #003366 !important;
+  background: #dc2626 !important;
   color: #ffffff !important;
-  border-color: #003366 !important;
+  border-color: #dc2626 !important;
 }
 
 

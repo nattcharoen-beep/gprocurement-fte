@@ -268,14 +268,14 @@
           <div class="card" style="background: #ffffff; border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1.5px solid #e2e8f0; box-shadow: 0 2px 10px rgba(0,0,0,0.04);">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid #f1f5f9;">
               <div>
-                <h3 style="color: #003366; margin: 0 0 6px 0; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                <h3 style="color: #dc2626; margin: 0 0 6px 0; font-size: 1.25rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
                   <span style="font-size: 1.4rem;">🗺️</span> การกระจายตัวของโอกาสงานแยกตามภูมิภาค (7 โซนทั่วประเทศ)
                 </h3>
                 <p style="margin: 0; color: #64748b; font-size: 0.88rem;">
                   คลิกที่กล่องของแต่ละภาคเพื่อเข้าไปดูรายการโครงการในภาคนั้นทันที (ระบบจะกรองให้อัตโนมัติ)
                 </p>
               </div>
-              <button type="button" onclick="filterOpportunitiesZone('')" style="background: #003366; border: none; color: #ffffff; padding: 9px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: 'Anuphan', sans-serif; box-shadow: 0 2px 6px rgba(0,51,102,0.2); transition: all 0.2s ease;">
+              <button type="button" onclick="filterOpportunitiesZone('')" style="background: #dc2626; border: none; color: #ffffff; padding: 9px 18px; border-radius: 20px; font-weight: 700; font-size: 0.88rem; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-family: 'Anuphan', sans-serif; box-shadow: 0 2px 6px rgba(0,51,102,0.2); transition: all 0.2s ease;">
                 <span>🌐 ดูทุกภาค (ทั่วประเทศ)</span>
               </button>
             </div>
@@ -656,7 +656,7 @@
 
           <!-- Highlight Discoveries Section in Overview -->
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <h3 style="font-size: 1.1rem; color: #003366; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 6px;">
+            <h3 style="font-size: 1.1rem; color: #dc2626; font-weight: 800; margin: 0; display: flex; align-items: center; gap: 6px;">
               <span>⭐ โครงการตรงสายเป้าหมายสูงสุดล่าสุด</span>
             </h3>
             <a href="#" onclick="filterOpportunitiesAll(); return false;" style="font-size: 0.88rem; font-weight: 700; color: #0284c7;">ดูทั้งหมด (<span id="v2-top-fit-count">0</span> โครงการ) →</a>
@@ -698,7 +698,7 @@
             <!-- Row 0: Geographic Zone Filter (7 โซนทั่วประเทศ) -->
             <div class="drawer-section">
               <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; flex-wrap: wrap; gap: 6px;">
-                <span style="font-size: 0.9rem; font-weight: 700; color: #003366; display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: #dc2626; display: flex; align-items: center; gap: 6px;">
                   <span style="font-size: 1.1rem;">🗺️</span> โซนจังหวัด (7 โซนทั่วประเทศ):
                 </span>
                 <span id="v2-zone-active-label" style="font-size: 0.8rem; font-weight: 600; color: #0284c7; background: #e0f2fe; padding: 2px 8px; border-radius: 6px;">แสดงทุกโซน</span>
@@ -718,7 +718,7 @@
             <!-- Row 1: Date Filter (ช่วงเวลาประกาศ) -->
             <div class="drawer-section">
               <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
-                <span style="font-size: 0.88rem; font-weight: 700; color: #003366; margin-right: 4px;">📅 ช่วงเวลาประกาศ:</span>
+                <span style="font-size: 0.88rem; font-weight: 700; color: #dc2626; margin-right: 4px;">📅 ช่วงเวลาประกาศ:</span>
                 <div class="date-filters-container">
                   <button class="btn-date-filter active" data-v2-days="-1" onclick="selectV2Days(-1, this)">🌟 งานที่ยังไม่เคาะทั้งหมด</button>
                   <button class="btn-date-filter" data-v2-days="0" onclick="selectV2Days(0, this)">วันนี้</button>
@@ -746,14 +746,14 @@
             <!-- Row 3: Announce Types & Product Groups -->
             <div class="drawer-section" style="display: flex; flex-wrap: wrap; gap: 15px;">
               <div>
-                <span style="font-size: 0.85rem; font-weight: 700; margin-right: 6px; color: #003366;">ประเภทประกาศ:</span>
+                <span style="font-size: 0.85rem; font-weight: 700; margin-right: 6px; color: #dc2626;">ประเภทประกาศ:</span>
                 <button class="badge badge-outline type-d0 active" data-v2-type="D0" onclick="toggleV2TypeFilter('D0', this)">เชิญชวน</button>
                 <button class="badge badge-outline type-b0 active" data-v2-type="B0" onclick="toggleV2TypeFilter('B0', this)">ร่าง TOR</button>
                 <button class="badge badge-outline type-15 active" data-v2-type="15" onclick="toggleV2TypeFilter('15', this)">ราคากลาง</button>
                 <button class="badge badge-outline type-p0 active" data-v2-type="P0" onclick="toggleV2TypeFilter('P0', this)">แผนจัดซื้อ</button>
               </div>
               <div>
-                <span style="font-size: 0.85rem; font-weight: 700; margin-right: 6px; color: #003366;">กลุ่มสินค้า FTE:</span>
+                <span style="font-size: 0.85rem; font-weight: 700; margin-right: 6px; color: #dc2626;">กลุ่มสินค้า FTE:</span>
                 <button class="badge badge-outline group-fire_alarm active" data-v2-group="fire_alarm" onclick="toggleV2GroupFilter('fire_alarm', this)">แจ้งเหตุเพลิงไหม้</button>
                 <button class="badge badge-outline group-fire_sprinkler_pump active" data-v2-group="fire_sprinkler_pump" onclick="toggleV2GroupFilter('fire_sprinkler_pump', this)">สปริงเกอร์ & ปั๊มดับเพลิง</button>
                 <button class="badge badge-outline group-fire_suppression_gas active" data-v2-group="fire_suppression_gas" onclick="toggleV2GroupFilter('fire_suppression_gas', this)">สารสะอาด/แก๊ส/ถังดับเพลิง</button>
@@ -765,7 +765,7 @@
             <!-- Row 4: Status filter & Auto-hide toggle -->
             <div class="drawer-section" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;">
               <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-                <span style="font-size: 0.85rem; font-weight: 700; color: #003366; margin-right: 2px;">🎯 สถานะตรวจสอบ:</span>
+                <span style="font-size: 0.85rem; font-weight: 700; color: #dc2626; margin-right: 2px;">🎯 สถานะตรวจสอบ:</span>
                 <div class="status-filters-container">
                   <button class="btn-status-filter active" data-v2-status="all" onclick="selectV2Status('all', this)">ทั้งหมด</button>
                   <button class="btn-status-filter" data-v2-status="matched" onclick="selectV2Status('matched', this)">⭐ ตรงสายแล้ว</button>
@@ -779,7 +779,7 @@
               </div>
               <div style="display: flex; align-items: center; gap: 6px;">
                 <label style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.84rem; font-weight: 600; color: #475569; cursor: pointer; background: #f8fafc; padding: 5px 12px; border-radius: 18px; border: 1px solid #cbd5e1;">
-                  <input type="checkbox" id="v2-toggle-hide-rejected" onchange="toggleV2HideRejected(this.checked)" style="cursor: pointer; accent-color: #003366;">
+                  <input type="checkbox" id="v2-toggle-hide-rejected" onchange="toggleV2HideRejected(this.checked)" style="cursor: pointer; accent-color: #dc2626;">
                   <span>👁️ ซ่อนงานที่ระบุว่า "ไม่ใช่งาน" อัตโนมัติ</span>
                 </label>
               </div>
@@ -982,12 +982,12 @@
               <button class="year-filter-btn" data-years="all" onclick="selectWinnerYears('all', this)">🌐 ทั้งหมด (All)</button>
             </div>
             <div style="font-size: 0.85rem; color: #64748b;" id="active-period-indicator">
-              แสดงข้อมูล: <strong style="color: #003366;">1 ปีย้อนหลัง (ปีงบ 2568 - 2569)</strong>
+              แสดงข้อมูล: <strong style="color: #0f172a;">1 ปีย้อนหลัง (ปีงบ 2568 - 2569)</strong>
             </div>
           </div>
 
           <div class="card" style="margin-bottom: 20px; padding: 20px; border-radius: 12px;">
-            <h3 id="top-winners-card-title" style="margin-top: 0; color: #003366; font-size: 1.15rem; font-weight: 800;">🏆 10 อันดับคู่แข่งที่ชนะงานบ่อยที่สุด</h3>
+            <h3 id="top-winners-card-title" style="margin-top: 0; color: #dc2626; font-size: 1.15rem; font-weight: 800;">🏆 10 อันดับคู่แข่งที่ชนะงานบ่อยที่สุด</h3>
             <table id="top-winners-table" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
               <thead>
                 <tr style="border-bottom: 2px solid #e2e8f0; text-align: left;">
@@ -1003,7 +1003,7 @@
           </div>
 
           <div class="card" style="margin-bottom: 20px; padding: 20px; border-radius: 12px;">
-            <h3 style="margin-top: 0; color: #003366; font-size: 1.15rem; font-weight: 800;">📉 สถิติส่วนลดเฉลี่ยแยกตามหมวดสินค้า (เทียบราคากลาง/งบประมาณ)</h3>
+            <h3 style="margin-top: 0; color: #dc2626; font-size: 1.15rem; font-weight: 800;">📉 สถิติส่วนลดเฉลี่ยแยกตามหมวดสินค้า (เทียบราคากลาง/งบประมาณ)</h3>
             <div id="group-discount-stats" style="margin-top: 10px;">
               <!-- Injected via winners.js -->
             </div>
@@ -1027,7 +1027,7 @@
             </div>
           </div>
           
-          <h3 style="margin-top: 20px; color: #003366; font-size: 1.15rem; font-weight: 800;">📜 ประวัติโครงการที่ได้ผู้ชนะแล้ว (W0)</h3>
+          <h3 style="margin-top: 20px; color: #dc2626; font-size: 1.15rem; font-weight: 800;">📜 ประวัติโครงการที่ได้ผู้ชนะแล้ว (W0)</h3>
           <div class="announcement-list" id="winners-list">
             <!-- Injected via winners.js -->
           </div>
@@ -1167,7 +1167,7 @@
 
               <!-- Quick Verification Checklist -->
               <div class="card" style="margin-top: 16px; padding: 18px; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h4 style="margin: 0 0 10px 0; color: #003366; font-size: 0.95rem; font-weight: 700;">✅ จุดแข็งของ FTE ใน e-GP:</h4>
+                <h4 style="margin: 0 0 10px 0; color: #dc2626; font-size: 0.95rem; font-weight: 700;">✅ จุดแข็งของ FTE ใน e-GP:</h4>
                 <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: #334155; line-height: 1.6;">
                   <li>ตัวแทนจำหน่ายแบรนด์ระดับโลก (Notifier, Patterson, Viking, NIBCO, Ansul, Kidde)</li>
                   <li>ทุนจดทะเบียนสูงและเป็นบริษัทจดทะเบียนในตลาดหลักทรัพย์ฯ (SET: FTE)</li>
@@ -1193,7 +1193,7 @@
     <div style="background: #ffffff; width: 100%; max-width: 900px; max-height: 92vh; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); overflow-y: auto; display: flex; flex-direction: column;">
       
       <!-- Modal Header -->
-      <div style="background: linear-gradient(135deg, #002244 0%, #003366 100%); color: #ffffff; padding: 18px 24px; border-top-left-radius: 12px; border-top-right-radius: 12px; display: flex; justify-content: space-between; align-items: flex-start;">
+      <div style="background: linear-gradient(135deg, #002244 0%, #dc2626 100%); color: #ffffff; padding: 18px 24px; border-top-left-radius: 12px; border-top-right-radius: 12px; display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <span style="font-size: 1.5rem;">🧮</span>
@@ -1224,7 +1224,7 @@
                 <span style="background: #e0e7ff; color: #4338ca; font-weight: 700; font-size: 0.78rem; padding: 2px 8px; border-radius: 4px;">กลยุทธ์ 1: กำไรสูงสุด</span>
                 <span style="font-size: 0.78rem; color: #64748b;">ลด 1.0%</span>
               </div>
-              <div id="strat1-bid" style="font-size: 1.2rem; font-weight: 800; color: #003366; margin: 6px 0;">฿0</div>
+              <div id="strat1-bid" style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 6px 0;">฿0</div>
               <div id="strat1-profit" style="font-size: 0.85rem; color: #16a34a; font-weight: 700;">กำไร ฿0</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">เหมาะสำหรับงานเฉพาะเจาะจง หรือสเปกนำ</div>
             </div>
@@ -1235,7 +1235,7 @@
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: 0.78rem; padding: 2px 8px; border-radius: 4px;">กลยุทธ์ 2: ชนะสถิติตลาด</span>
               </div>
-              <div id="strat2-bid" style="font-size: 1.2rem; font-weight: 800; color: #003366; margin: 6px 0;">฿0</div>
+              <div id="strat2-bid" style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 6px 0;">฿0</div>
               <div id="strat2-profit" style="font-size: 0.85rem; color: #16a34a; font-weight: 700;">กำไร ฿0</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">ตัดหน้าคู่แข่งทั่วไปที่ลดแค่ 2-4% แต่เรายังกำไรดี</div>
             </div>
@@ -1245,7 +1245,7 @@
               <div style="display: flex; justify-content: space-between; align-items: center;">
                 <span style="background: #fee2e2; color: #b91c1c; font-weight: 700; font-size: 0.78rem; padding: 2px 8px; border-radius: 4px;">กลยุทธ์ 3: สกัดคู่แข่งใหญ่</span>
               </div>
-              <div id="strat3-bid" style="font-size: 1.2rem; font-weight: 800; color: #003366; margin: 6px 0;">฿0</div>
+              <div id="strat3-bid" style="font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 6px 0;">฿0</div>
               <div id="strat3-profit" style="font-size: 0.85rem; color: #d97706; font-weight: 700;">กำไร ฿0</div>
               <div style="font-size: 0.75rem; color: #64748b; margin-top: 4px;">ใช้สกัดคู่แข่งเจ้าใหญ่ หรือเน้นเอาผลงาน</div>
             </div>
@@ -1255,7 +1255,7 @@
 
         <!-- Cost Breakdown Inputs Section -->
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 20px;">
-          <div style="font-weight: 700; color: #003366; margin-bottom: 12px; font-size: 0.95rem;">⚙️ ต้นทุนโครงการจริงของ FTE (ปรับแต่งได้):</div>
+          <div style="font-weight: 700; color: #dc2626; margin-bottom: 12px; font-size: 0.95rem;">⚙️ ต้นทุนโครงการจริงของ FTE (ปรับแต่งได้):</div>
           
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
             <div>
@@ -1282,23 +1282,23 @@
         </div>
 
         <!-- Interactive Bid Slider & Results -->
-        <div style="background: #ffffff; border: 2px solid #003366; border-radius: 10px; padding: 18px; margin-bottom: 20px;">
+        <div style="background: #ffffff; border: 2px solid #dc2626; border-radius: 10px; padding: 18px; margin-bottom: 20px;">
           <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
             <div>
-              <span style="font-size: 1.1rem; font-weight: 800; color: #003366;">🎯 ปรับราคาเคาะเสนอประมูล:</span>
+              <span style="font-size: 1.1rem; font-weight: 800; color: #dc2626;">🎯 ปรับราคาเคาะเสนอประมูล:</span>
               <span id="res-discount-info" style="margin-left: 8px; font-weight: 700; color: #ea580c; font-size: 0.9rem;">ลดจากราคากลาง 0%</span>
             </div>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="font-weight: bold; color: #475569;">฿</span>
-              <input type="number" id="sim-input-bid-price" oninput="onBidInputChange(this.value)" style="font-size: 1.3rem; font-weight: 800; color: #003366; padding: 4px 10px; border: 2px solid #0284c7; border-radius: 6px; width: 170px; text-align: right;">
+              <input type="number" id="sim-input-bid-price" oninput="onBidInputChange(this.value)" style="font-size: 1.3rem; font-weight: 800; color: #dc2626; padding: 4px 10px; border: 2px solid #0284c7; border-radius: 6px; width: 170px; text-align: right;">
             </div>
           </div>
 
-          <input type="range" id="sim-bid-slider" oninput="onBidSliderChange(this.value)" style="width: 100%; height: 8px; border-radius: 5px; cursor: pointer; accent-color: #003366;">
+          <input type="range" id="sim-bid-slider" oninput="onBidSliderChange(this.value)" style="width: 100%; height: 8px; border-radius: 5px; cursor: pointer; accent-color: #dc2626;">
           
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #64748b; margin-top: 4px;">
             <span>จุดคุ้มทุน (Floor Price): <strong id="res-breakeven" style="color: #dc2626;">฿0</strong></span>
-            <span>ราคากลางเต็ม: <strong id="sim-project-budget-display" style="color: #003366;">฿0</strong></span>
+            <span>ราคากลางเต็ม: <strong id="sim-project-budget-display" style="color: #0f172a;">฿0</strong></span>
           </div>
 
           <!-- Status Indicator Box -->

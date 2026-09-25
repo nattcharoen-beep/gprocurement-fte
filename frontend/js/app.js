@@ -548,13 +548,10 @@ function getDaysLeft(dateStr) {
 }
 
 const ALL_SYSTEM_KEYWORDS = [
-  'สนามกีฬา', 'สนามฟุตบอล', 'หญ้าเทียม', 'สนามฟุตซอล', 'สนามบาสเก็ตบอล', 'สนามบาส',
-  'สนามแบดมินตัน', 'สนามเทนนิส', 'สนามวอลเลย์บอล', 'ลู่วิ่ง', 'ลู่กรีฑา', 'พื้นยาง EPDM',
-  'พื้นยาง', 'EPDM', 'epdm', 'พื้นสังเคราะห์', 'พื้น PU', 'โพลียูรีเทน', 'อะคริลิค',
-  'Acrylic', 'Silicon PU', 'SPU', 'PP Interlock', 'PVC Sport', 'พื้นกีฬา', 'ลานกีฬา',
-  'สนามเด็กเล่น', 'เครื่องเล่นสนาม', 'พื้นยางนิรภัย', 'สนามเด็กเล่นสร้างปัญญา',
-  'พื้นอีพ็อกซี่', 'Epoxy', 'epoxy', 'อีพ็อกซี่', 'พื้นโรงงาน', 'PU Crete', 'Polished Concrete',
-  'พื้นอุตสาหกรรม', 'กันซึม', 'Waterproofing', 'waterproofing', 'กันรั่ว', 'ดาดฟ้า'
+  'ระบบแจ้งเหตุเพลิงไหม้', 'Fire Alarm', 'สปริงเกอร์', 'ปั๊มน้ำดับเพลิง', 'Sprinkler', 'Fire Pump',
+  'ระบบดับเพลิง', 'สารสะอาด', 'แก๊ส', 'โฟม', 'Novec 1230', 'FM-200', 'CO2', 'Clean Agent',
+  'ตู้สายส่งน้ำ', 'หัวรับน้ำ', 'วาล์วดับเพลิง', 'Hydrant', 'FHC', 'NIBCO', 'ไฟฉุกเฉิน',
+  'ป้ายทางออก', 'Emergency Light', 'Max Bright'
 ];
 
 window.getMatchOriginInfo = function(item) {
@@ -1047,7 +1044,6 @@ function filterCardsByStatus() {
 document.addEventListener('DOMContentLoaded', async () => {
   // Clear legacy hidden projects from localStorage so user never misses critical projects
   localStorage.removeItem('fte_hidden_projects');
-  localStorage.removeItem('blucher_hidden_projects');
 
   // Render keyword list
   renderKeywords();
@@ -1266,7 +1262,7 @@ async function loadStats() {
     else if (selectedDays === 30) periodLabel = '30 วันหลังสุด';
 
     container.innerHTML = `
-      <div class="summary-card c-total" style="background: linear-gradient(135deg, #003366 0%, #004d99 100%); color: #ffffff; border: none; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.12); padding: 12px 8px; cursor: pointer;" onclick="showAllOpportunities()" title="คลิกเพื่อดูโอกาสงานทั้งหมด (รีเซ็ตตัวกรอง)">
+      <div class="summary-card c-total" style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: #ffffff; border: none; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.12); padding: 12px 8px; cursor: pointer;" onclick="showAllOpportunities()" title="คลิกเพื่อดูโอกาสงานทั้งหมด (รีเซ็ตตัวกรอง)">
         <div style="display: flex; justify-content: space-between; align-items: center; gap: 2px;">
           <span style="color: #e0f2fe; font-weight: 700; font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="รวมโอกาสงานทั้งหมด">🌟 รวมงาน</span>
           <span style="font-size: 0.7rem; background: rgba(255,255,255,0.22); color: #ffffff; padding: 1px 5px; border-radius: 8px; font-weight: 600; white-space: nowrap;">${periodLabel}</span>
@@ -1564,7 +1560,7 @@ async function loadAnnouncements(append = false) {
           <!-- Layer 3: Action Buttons (Clear, Clickable, No Guesswork) -->
           <div class="card-layer-actions">
             <button type="button" class="btn-card-action btn-action-copy" onclick="copyText('${projId}', this)" title="คัดลอกเลข e-GP เพื่อนำไปค้นหาใน e-GP">
-              📋 คัดลอกเลข e-GP: <strong style="font-family: monospace; margin-left: 2px; color: #003366;">${projId}</strong>
+              📋 คัดลอกเลข e-GP: <strong style="font-family: monospace; margin-left: 2px; color: #0f172a;">${projId}</strong>
             </button>
             <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" title="กดคัดลอกเลขแล้วเปิด e-GP เพื่อวางค้นหาเอกสาร">
               🔗 เปิดใน e-GP
@@ -1846,15 +1842,12 @@ async function loadBoqAnnouncements(append = false) {
         if (m && m[1]) matchedKw = m[1];
       }
       if (!matchedKw && item.project_name) {
-        const t = item.project_name;
-        if (t.includes('กันซึม')) matchedKw = 'กันซึม';
-        else if (t.includes('ลู่วิ่ง') || t.includes('ลู่กรีฑา')) matchedKw = 'ลู่วิ่ง/ลู่กรีฑา';
-        else if (t.includes('ฟุตซอล') || t.includes('สนามฟุตซอล')) matchedKw = 'สนามฟุตซอล';
-        else if (t.includes('หญ้าเทียม')) matchedKw = 'หญ้าเทียม';
-        else if (t.includes('สนามเด็กเล่น') || t.includes('เครื่องเล่นสนาม')) matchedKw = 'สนามเด็กเล่น';
-        else if (t.includes('พื้นยาง') || t.includes('epdm') || t.includes('EPDM')) matchedKw = 'พื้นยาง EPDM';
-        else if (t.includes('อีพ็อกซี่') || t.includes('epoxy')) matchedKw = 'พื้นอีพ็อกซี่';
-        else if (t.includes('บาส')) matchedKw = 'บาสเกตบอล';
+        const t = item.project_name.toLowerCase();
+        if (t.includes('แจ้งเหตุเพลิงไหม้') || t.includes('fire alarm')) matchedKw = 'Fire Alarm';
+        else if (t.includes('สปริงเกอร์') || t.includes('ปั๊มน้ำดับเพลิง') || t.includes('sprinkler') || t.includes('fire pump')) matchedKw = 'Sprinkler & Pump';
+        else if (t.includes('ดับเพลิงแก๊ส') || t.includes('สารสะอาด') || t.includes('clean agent') || t.includes('novec') || t.includes('fm-200')) matchedKw = 'Clean Agent';
+        else if (t.includes('สายส่งน้ำ') || t.includes('ตู้ดับเพลิง') || t.includes('hydrant') || t.includes('fhc')) matchedKw = 'Hydrant & FHC';
+        else if (t.includes('ไฟฉุกเฉิน') || t.includes('ป้ายทางออก') || t.includes('emergency light')) matchedKw = 'Emergency Light';
       }
 
       // Calculate days left to bid
@@ -1985,7 +1978,7 @@ async function loadBoqAnnouncements(append = false) {
           <!-- Layer 3: Action Buttons (Clear, Clickable, No Guesswork) -->
           <div class="card-layer-actions">
             <button type="button" class="btn-card-action btn-action-copy" onclick="copyText('${projId}', this)" title="คัดลอกเลข e-GP เพื่อนำไปค้นหาใน e-GP">
-              📋 คัดลอกเลข e-GP: <strong style="font-family: monospace; margin-left: 2px; color: #003366;">${projId}</strong>
+              📋 คัดลอกเลข e-GP: <strong style="font-family: monospace; margin-left: 2px; color: #0f172a;">${projId}</strong>
             </button>
             <a href="${egpWebUrl}" target="_blank" rel="noopener noreferrer" class="btn-card-action btn-action-egp" title="กดคัดลอกเลขแล้วเปิด e-GP เพื่อวางค้นหาเอกสาร">
               🔗 เปิดใน e-GP
