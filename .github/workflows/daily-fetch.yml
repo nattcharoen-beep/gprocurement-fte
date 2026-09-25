@@ -16,15 +16,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: cd scraper && npm ci
 
-      - name: Run scraper
+      - name: Run Harvester & Daily Digest
         env:
           D1_API_URL: ${{ secrets.D1_API_URL || 'https://gprocurement-fte.natt-charoen.workers.dev' }}
           D1_API_KEY: ${{ secrets.D1_API_KEY }}
@@ -32,4 +32,4 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           GMAIL_RECIPIENTS: ${{ secrets.GMAIL_RECIPIENTS }}
-        run: cd scraper && node src/index.js
+        run: cd scraper && node harvest_fte_30_days.js && node src/index.js

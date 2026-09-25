@@ -12,7 +12,6 @@ import { uploadToD1 } from './d1-uploader.js';
 import { extractProvince } from './province-extractor.js';
 import { scanPdfBuffer } from './in-memory-pdf-parser.js';
 import { getEgpSessionToken } from './capsolver.js';
-import CryptoJS from 'crypto-js';
 
 export function getDirectProcurementUrl(projectId) {
   if (!projectId) return 'https://process5.gprocurement.go.th/egp-agpc01-web/announcement';
@@ -590,7 +589,7 @@ async function runBatchPuppeteer(batchName, keywords, lookbackDateStr, todayStr,
   const input = await page.$('input[name="keywordSearch"]');
   if (input) {
     await input.click();
-    await page.keyboard.type('กีฬา', { delay: 20 });
+    await page.keyboard.type('ดับเพลิง', { delay: 20 });
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('button'));
       const b = btns.find(x => x.innerText.trim() === 'ค้นหา');
